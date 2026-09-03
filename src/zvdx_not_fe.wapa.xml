@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_WAPA" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <ATTRIBUTES>
+    <APPLNAME>ZVDX_NOT_FE</APPLNAME>
+    <APPLEXT>ZVDX_NOT_FE</APPLEXT>
+    <SECURITY>X</SECURITY>
+    <ORIGLANG>E</ORIGLANG>
+    <MODIFLANG>E</MODIFLANG>
+    <TEXT>Notlar Fiori Element</TEXT>
+   </ATTRIBUTES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

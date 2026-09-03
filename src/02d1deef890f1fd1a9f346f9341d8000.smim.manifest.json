@@ -1,0 +1,87 @@
+{
+  "_version": "1.12.0",
+  "sap.app": {
+    "id": "zvdx.notfe",
+    "type": "application",
+    "title": "Notlarım (Fiori Elements)",
+    "description": "ZVDX_C_NOT üzerinde List Report / Object Page",
+    "applicationVersion": { "version": "1.0.0" },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/ZVDX_SB_NOT_O2/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "annotations": ["ZVDX_SB_NOT_O2_VAN"]
+        }
+      },
+      "ZVDX_SB_NOT_O2_VAN": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZVDX_SB_NOT_O2_VAN',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": { "localUri": "" }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.96.0",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.suite.ui.generic.template": {}
+      }
+    },
+    "models": {
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false
+        }
+      }
+    },
+    "contentDensities": { "compact": true, "cozy": true }
+  },
+  "sap.ui.generic.app": {
+    "_version": "1.3.0",
+    "settings": {
+      "flexibleColumnLayout": {
+        "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded"
+      }
+    },
+    "pages": {
+      "ListReport|Notlar": {
+        "entitySet": "Notlar",
+        "component": {
+          "name": "sap.suite.ui.generic.template.ListReport",
+          "list": true,
+          "settings": {
+            "smartVariantManagement": true,
+            "tableType": "ResponsiveTable",
+            "dataLoadSettings": { "loadDataOnAppLaunch": "always" }
+          }
+        },
+        "pages": {
+          "ObjectPage|Notlar": {
+            "entitySet": "Notlar",
+            "component": {
+              "name": "sap.suite.ui.generic.template.ObjectPage"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}
