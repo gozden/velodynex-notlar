@@ -24,98 +24,49 @@ ENDCLASS.
 CLASS ZCL_ZVDX_NOT_DPC_EXT IMPLEMENTATION.
 
 
-  method NOTLARSET_CREATE_ENTITY.
-**TRY.
-*CALL METHOD SUPER->NOTLARSET_CREATE_ENTITY
-*  EXPORTING
-*    IV_ENTITY_NAME          =
-*    IV_ENTITY_SET_NAME      =
-*    IV_SOURCE_NAME          =
-*    IT_KEY_TAB              =
-**    io_tech_request_context =
-*    IT_NAVIGATION_PATH      =
-**    io_data_provider        =
-**  IMPORTING
-**    er_entity               =
-*    .
-**  CATCH /iwbep/cx_mgw_busi_exception.
-**  CATCH /iwbep/cx_mgw_tech_exception.
-**ENDTRY.
+  METHOD notlarset_create_entity.
+    DATA: ls_notlar TYPE zvdx_notlar.
 
-  DATA: ls_notlar TYPE zvdx_notlar.
+    " Gelen payload'u al
+    io_data_provider->read_entry_data( IMPORTING es_data = er_entity ).
 
-  " Gelen payload'u al
-  io_data_provider->read_entry_data( IMPORTING es_data = er_entity ).
+    " Teknik alanları backend doldurur
+    TRY.
+        er_entity-not_id = cl_system_uuid=>create_uuid_c32_static( ).
+      CATCH cx_uuid_error.
+        RAISE EXCEPTION TYPE /iwbep/cx_mgw_tech_exception.
+    ENDTRY.
 
-  " Teknik alanları backend doldurur
-  TRY.
-      er_entity-not_id = cl_system_uuid=>create_uuid_c32_static( ).
-    CATCH cx_uuid_error.
-      RAISE EXCEPTION TYPE /iwbep/cx_mgw_tech_exception.
-  ENDTRY.
+    GET TIME STAMP FIELD er_entity-olusturma.
+    IF er_entity-durum IS INITIAL.
+      er_entity-durum = 'A'.
+    ENDIF.
 
-  GET TIME STAMP FIELD er_entity-olusturma.
-  IF er_entity-durum IS INITIAL.
-    er_entity-durum = 'A'.
-  ENDIF.
+    MOVE-CORRESPONDING er_entity TO ls_notlar.
+    INSERT zvdx_notlar FROM ls_notlar.
 
-  MOVE-CORRESPONDING er_entity TO ls_notlar.
-  INSERT zvdx_notlar FROM ls_notlar.
+    IF sy-subrc <> 0.
+      RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception.
+    ENDIF.
 
-  IF sy-subrc <> 0.
-    RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception.
-  ENDIF.
-
-ENDMETHOD.
+  ENDMETHOD.
 
 
-  method NOTLARSET_DELETE_ENTITY.
-**TRY.
-*CALL METHOD SUPER->NOTLARSET_DELETE_ENTITY
-*  EXPORTING
-*    IV_ENTITY_NAME          =
-*    IV_ENTITY_SET_NAME      =
-*    IV_SOURCE_NAME          =
-*    IT_KEY_TAB              =
-**    io_tech_request_context =
-*    IT_NAVIGATION_PATH      =
-*    .
-**  CATCH /iwbep/cx_mgw_busi_exception.
-**  CATCH /iwbep/cx_mgw_tech_exception.
-**ENDTRY.
+  METHOD notlarset_delete_entity.
+    DATA(lv_not_id) = VALUE #( it_key_tab[ name = 'NotId' ]-value OPTIONAL ).
 
-  DATA(lv_not_id) = VALUE #( it_key_tab[ name = 'NotId' ]-value OPTIONAL ).
+    DELETE FROM zvdx_notlar WHERE not_id = @lv_not_id.
 
-  DELETE FROM zvdx_notlar WHERE not_id = @lv_not_id.
+    IF sy-subrc <> 0.
+      RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception
+        EXPORTING
+          textid = /iwbep/cx_mgw_busi_exception=>resource_not_found.
+    ENDIF.
 
-  IF sy-subrc <> 0.
-    RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception
-      EXPORTING textid = /iwbep/cx_mgw_busi_exception=>resource_not_found.
-  ENDIF.
-
-ENDMETHOD.
+  ENDMETHOD.
 
 
   METHOD notlarset_get_entity.
-**TRY.
-*CALL METHOD SUPER->NOTLARSET_GET_ENTITY
-*  EXPORTING
-*    IV_ENTITY_NAME          =
-*    IV_ENTITY_SET_NAME      =
-*    IV_SOURCE_NAME          =
-*    IT_KEY_TAB              =
-**    io_request_object       =
-**    io_tech_request_context =
-*    IT_NAVIGATION_PATH      =
-**  IMPORTING
-**    er_entity               =
-**    es_response_context     =
-*    .
-**  CATCH /iwbep/cx_mgw_busi_exception.
-**  CATCH /iwbep/cx_mgw_tech_exception.
-**ENDTRY.
-
-
     DATA(lv_not_id) = VALUE #( it_key_tab[ name = 'NotId' ]-value OPTIONAL ).
 
     SELECT SINGLE * FROM zvdx_notlar
@@ -132,32 +83,6 @@ ENDMETHOD.
 
 
   METHOD notlarset_get_entityset.
-**TRY.
-*CALL METHOD SUPER->NOTLARSET_GET_ENTITYSET
-*  EXPORTING
-*    IV_ENTITY_NAME           =
-*    IV_ENTITY_SET_NAME       =
-*    IV_SOURCE_NAME           =
-*    IT_FILTER_SELECT_OPTIONS =
-*    IS_PAGING                =
-*    IT_KEY_TAB               =
-*    IT_NAVIGATION_PATH       =
-*    IT_ORDER                 =
-*    IV_FILTER_STRING         =
-*    IV_SEARCH_STRING         =
-**    io_tech_request_context  =
-**  IMPORTING
-**    et_entityset             =
-**    es_response_context      =
-*    .
-**  CATCH /iwbep/cx_mgw_busi_exception.
-**  CATCH /iwbep/cx_mgw_tech_exception.
-**ENDTRY.
-
-***    SELECT * FROM zvdx_notlar
-***      INTO CORRESPONDING FIELDS OF TABLE @et_entityset
-***      ORDER BY olusturma DESCENDING.
-
     " 1) $filter → dinamik WHERE (Gateway OData ifadesini Open SQL'e çevirir)
     DATA(lv_where) = io_tech_request_context->get_osql_where_clause( ).
 
@@ -185,59 +110,44 @@ ENDMETHOD.
   ENDMETHOD.
 
 
-  method NOTLARSET_UPDATE_ENTITY.
-**TRY.
-*CALL METHOD SUPER->NOTLARSET_UPDATE_ENTITY
-*  EXPORTING
-*    IV_ENTITY_NAME          =
-*    IV_ENTITY_SET_NAME      =
-*    IV_SOURCE_NAME          =
-*    IT_KEY_TAB              =
-**    io_tech_request_context =
-*    IT_NAVIGATION_PATH      =
-**    io_data_provider        =
-**  IMPORTING
-**    er_entity               =
-*    .
-**  CATCH /iwbep/cx_mgw_busi_exception.
-**  CATCH /iwbep/cx_mgw_tech_exception.
-**ENDTRY.
+  METHOD notlarset_update_entity.
 
-  DATA: ls_notlar TYPE zvdx_notlar.
+    DATA: ls_notlar TYPE zvdx_notlar.
 
-  " 1) URL'deki key (hangi kayıt?)
-  DATA(lv_not_id) = VALUE #( it_key_tab[ name = 'NotId' ]-value OPTIONAL ).
+    " 1) URL'deki key (hangi kayıt?)
+    DATA(lv_not_id) = VALUE #( it_key_tab[ name = 'NotId' ]-value OPTIONAL ).
 
-  " 2) Mevcut kaydı oku — yoksa medeni 404
-  SELECT SINGLE * FROM zvdx_notlar
-    INTO @ls_notlar
-    WHERE not_id = @lv_not_id.
+    " 2) Mevcut kaydı oku — yoksa medeni 404
+    SELECT SINGLE * FROM zvdx_notlar
+      INTO @ls_notlar
+      WHERE not_id = @lv_not_id.
 
-  IF sy-subrc <> 0.
-    RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception
-      EXPORTING textid = /iwbep/cx_mgw_busi_exception=>resource_not_found.
-  ENDIF.
+    IF sy-subrc <> 0.
+      RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception
+        EXPORTING
+          textid = /iwbep/cx_mgw_busi_exception=>resource_not_found.
+    ENDIF.
 
-  " 3) Gelen gövdeyi al (PUT/MERGE payload'u)
-  io_data_provider->read_entry_data( IMPORTING es_data = er_entity ).
+    " 3) Gelen gövdeyi al (PUT/MERGE payload'u)
+    io_data_provider->read_entry_data( IMPORTING es_data = er_entity ).
 
-  " 4) Sadece kullanıcının değiştirebileceği alanları devral
-  "    (key ve olusturma backend'in malı — istemciden gelene güvenmiyoruz)
-  IF er_entity-baslik IS NOT INITIAL.
-    ls_notlar-baslik = er_entity-baslik.
-  ENDIF.
-  IF er_entity-durum IS NOT INITIAL.
-    ls_notlar-durum = er_entity-durum.
-  ENDIF.
+    " 4) Sadece kullanıcının değiştirebileceği alanları devral
+    "    (key ve olusturma backend'in malı — istemciden gelene güvenmiyoruz)
+    IF er_entity-baslik IS NOT INITIAL.
+      ls_notlar-baslik = er_entity-baslik.
+    ENDIF.
+    IF er_entity-durum IS NOT INITIAL.
+      ls_notlar-durum = er_entity-durum.
+    ENDIF.
 
-  UPDATE zvdx_notlar FROM ls_notlar.
+    UPDATE zvdx_notlar FROM ls_notlar.
 
-  IF sy-subrc <> 0.
-    RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception.
-  ENDIF.
+    IF sy-subrc <> 0.
+      RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception.
+    ENDIF.
 
-  " 5) Kaydın güncel halini geri döndür
-  MOVE-CORRESPONDING ls_notlar TO er_entity.
+    " 5) Kaydın güncel halini geri döndür
+    MOVE-CORRESPONDING ls_notlar TO er_entity.
 
-ENDMETHOD.
+  ENDMETHOD.
 ENDCLASS.
