@@ -40,3 +40,10 @@ Tarayıcı (Fiori Launchpad, GOZDE)
 ## Klasörler
 - `ui5/` — BSP ZVDX_NOT_UI içeriği (kökte, i18n alt klasörü ile)
 - `abap/` — DPC_EXT metotları ve tablo tanımı
+
+## Depo yapısı
+- `src/` + `.abapgit.xml` — abapGit ile sistemden dışa aktarılan **gerçek** nesneler
+  (tablo, sınıflar, BSP, SEGW projesi). Kaynak doğru budur.
+- `ui5/`, `abap/` — aynı kodun elle derlenmiş, okunması kolay kopyası.
+  Tutarsızlık olursa `src/` geçerlidir.
+- Yeniden kurulum: abapGit → New Online/Offline → bu repo → Pull.
