@@ -1,0 +1,72 @@
+{
+  "_version": "1.32.0",
+  "sap.app": {
+    "id": "vdx.notlar",
+    "type": "application",
+    "i18n": {
+      "bundleUrl": "i18n/i18n.properties",
+      "supportedLocales": ["", "en"],
+      "fallbackLocale": ""
+    },
+    "title": "{{appTitle}}",
+    "applicationVersion": { "version": "1.0.0" },
+    "dataSources": {
+      "notService": {
+        "uri": "/sap/opu/odata/sap/ZVDX_NOT_SRV/",
+        "type": "OData",
+        "settings": { "odataVersion": "2.0" }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "vdx.notlar.App",
+      "type": "XML",
+      "id": "app",
+      "async": true
+    },
+    "dependencies": {
+      "minUI5Version": "1.60.0",
+      "libs": { "sap.m": {}, "sap.ui.core": {} }
+    },
+    "models": {
+      "": {
+        "dataSource": "notService",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay"
+        }
+      },
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "vdx.notlar.i18n.i18n",
+          "supportedLocales": ["", "en"],
+          "fallbackLocale": ""
+        }
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "vdx.notlar",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "async": true
+      },
+      "routes": [
+        { "name": "liste", "pattern": "",               "target": "liste" },
+        { "name": "detay", "pattern": "Notlar/{notId}", "target": "detay" }
+      ],
+      "targets": {
+        "liste": { "viewName": "Liste", "viewId": "liste" },
+        "detay": { "viewName": "Detay", "viewId": "detay" }
+      }
+    }
+  }
+}

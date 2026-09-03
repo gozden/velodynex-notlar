@@ -1,0 +1,50 @@
+<mvc:View
+  controllerName="vdx.notlar.Liste"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m">
+  <Page title="{i18n>appTitle}">
+    <headerContent>
+      <Button text="{i18n>btnYeniNot}" icon="sap-icon://add" press=".onYeniNot"/>
+    </headerContent>
+    <subHeader>
+      <Toolbar>
+        <SearchField id="arama"
+                     width="100%"
+                     placeholder="{i18n>srchPlaceholder}"
+                     liveChange=".onAra"/>
+        <Button id="sirala"
+                icon="sap-icon://sort"
+                tooltip="{i18n>btnSirala}"
+                press=".onSirala"/>
+      </Toolbar>
+    </subHeader>
+    <content>
+      <IconTabBar id="sekmeler"
+                  headerMode="Inline"
+                  expandable="false"
+                  select=".onSekme">
+        <items>
+          <IconTabFilter key="TUMU" text="{i18n>tabTumu}" count="{sayac>/tumu}"/>
+          <IconTabFilter key="A" text="{i18n>durumAcik}" count="{sayac>/acik}" icon="sap-icon://circle-task" iconColor="Neutral"/>
+          <IconTabFilter key="T" text="{i18n>durumTamamlandi}" count="{sayac>/tamam}" icon="sap-icon://accept" iconColor="Positive"/>
+        </items>
+        <content>
+          <List id="notListesi"
+                items="{/NotlarSet}"
+                mode="Delete"
+                delete=".onSil"
+                updateFinished=".onListeGuncellendi"
+                noDataText="{i18n>noData}">
+            <StandardListItem
+              title="{Baslik}"
+              description="{= ${Durum} === 'T' ? ${i18n>durumTamamlandi} : ${i18n>durumAcik} }"
+              info="{= ${Durum} === 'T' ? '✓' : '' }"
+              infoState="{= ${Durum} === 'T' ? 'Success' : 'None' }"
+              type="Navigation"
+              press=".onDetay"/>
+          </List>
+        </content>
+      </IconTabBar>
+    </content>
+  </Page>
+</mvc:View>

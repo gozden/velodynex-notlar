@@ -1,0 +1,38 @@
+<mvc:View
+  controllerName="vdx.notlar.Detay"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.ui.layout.form">
+  <Page title="{i18n>detayBaslik}"
+        showNavButton="true"
+        navButtonPress=".onGeri">
+    <content>
+      <f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+        <f:content>
+          <Label text="{i18n>lblBaslik}"/>
+          <Input value="{Baslik}"/>
+
+          <Label text="{i18n>lblDurum}"/>
+          <Select selectedKey="{Durum}">
+            <core:Item key="A" text="{i18n>durumAcik}"/>
+            <core:Item key="T" text="{i18n>durumTamamlandi}"/>
+          </Select>
+
+          <Label text="{i18n>lblOlusturma}"/>
+          <Text text="{
+            path: 'Olusturma',
+            type: 'sap.ui.model.type.DateTime',
+            formatOptions: { style: 'medium' }
+          }"/>
+        </f:content>
+      </f:SimpleForm>
+    </content>
+    <footer>
+      <Toolbar>
+        <ToolbarSpacer/>
+        <Button text="{i18n>btnKaydet}" type="Emphasized" press=".onKaydet"/>
+      </Toolbar>
+    </footer>
+  </Page>
+</mvc:View>
