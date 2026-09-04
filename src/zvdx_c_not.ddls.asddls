@@ -8,25 +8,21 @@
   title: { type: #STANDARD, value: 'Baslik' },
   description: { type: #STANDARD, value: 'DurumText' }
 }
-define view entity ZVDX_C_NOT
-  as select from zvdx_notlar
+define root view entity ZVDX_C_NOT
+  provider contract transactional_query
+  as projection on ZVDX_R_NOT
 {
       @UI.facet: [
-        { id: 'GenelBilgiler',
-          type: #IDENTIFICATION_REFERENCE,
-          label: 'Genel Bilgiler',
-          position: 10 },
-        { id: 'Zaman',
-          type: #FIELDGROUP_REFERENCE,
-          targetQualifier: 'ZamanGrubu',
-          label: 'Oluşturma Bilgisi',
-          position: 20 }
+        { id: 'GenelBilgiler', type: #IDENTIFICATION_REFERENCE,
+          label: 'Genel Bilgiler', position: 10 },
+        { id: 'Zaman', type: #FIELDGROUP_REFERENCE,
+          targetQualifier: 'ZamanGrubu', label: 'Oluşturma Bilgisi', position: 20 }
       ]
 
       @UI.lineItem:       [{ position: 10, importance: #LOW }]
       @UI.identification: [{ position: 10 }]
       @EndUserText.label: 'Not No'
-  key not_id    as NotId,
+  key NotId,
 
       @UI.lineItem:       [{ position: 20, importance: #HIGH }]
       @UI.identification: [{ position: 20 }]
@@ -34,38 +30,29 @@ define view entity ZVDX_C_NOT
       @Search.defaultSearchElement: true
       @Search.fuzzinessThreshold: 0.8
       @EndUserText.label: 'Başlık'
-      baslik    as Baslik,
+      Baslik,
 
       @UI.lineItem:       [{ position: 30, importance: #HIGH }]
       @UI.identification: [{ position: 30 }]
       @UI.selectionField: [{ position: 20 }]
       @EndUserText.label: 'Durum'
-      durum     as Durum,
+      Durum,
 
-      @UI.lineItem: [{ position: 35 }]
+      @UI.lineItem:       [{ position: 35 }]
+      @UI.identification: [{ position: 35 }]
       @EndUserText.label: 'Durum Açıklaması'
-            case durum
-        when 'T' then 'Tamamlandı'
-        else 'Açık'
-      end as DurumText,
-      
+      DurumText,
+
       @UI.lineItem:       [{ position: 40, importance: #MEDIUM }]
       @UI.selectionField: [{ position: 30 }]
       @UI.fieldGroup:     [{ qualifier: 'ZamanGrubu', position: 10 }]
       @EndUserText.label: 'Oluşturma Tarihi'
-      tstmp_to_dats( olusturma,
-                     abap_system_timezone( $session.client, 'NULL' ),
-                     $session.client,
-                     'NULL' ) as OlusturmaTarihi,
+      OlusturmaTarihi,
 
       @UI.fieldGroup:     [{ qualifier: 'ZamanGrubu', position: 20 }]
       @EndUserText.label: 'Oluşturma Saati'
-      tstmp_to_tims( olusturma,
-                     abap_system_timezone( $session.client, 'NULL' ),
-                     $session.client,
-                     'NULL' ) as OlusturmaSaati,
+      OlusturmaSaati,
 
       @UI.hidden: true
-      @Semantics.systemDateTime.createdAt: true
-      olusturma as Olusturma
+      Olusturma
 }

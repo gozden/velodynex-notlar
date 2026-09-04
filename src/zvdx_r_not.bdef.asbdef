@@ -1,0 +1,26 @@
+managed implementation in class zbp_vdx_r_not unique;
+strict ( 2 );
+
+define behavior for ZVDX_R_NOT alias Notlar
+persistent table zvdx_notlar
+lock master
+authorization master ( instance )
+early numbering
+{
+  create;
+  update;
+  delete;
+
+  field ( readonly ) NotId, Olusturma, DurumText, OlusturmaTarihi, OlusturmaSaati;
+  field ( mandatory ) Baslik;
+
+  determination setDurumVarsayilan on modify { create; }
+
+  mapping for zvdx_notlar
+  {
+    NotId     = not_id;
+    Baslik    = baslik;
+    Durum     = durum;
+    Olusturma = olusturma;
+  }
+}
