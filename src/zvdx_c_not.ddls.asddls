@@ -24,11 +24,11 @@ define root view entity ZVDX_C_NOT
       @EndUserText.label: 'Not No'
   key NotId,
 
-      @UI.lineItem:       [{ position: 20, importance: #HIGH }]
-      @UI.identification: [{ position: 20 }]
-      @UI.selectionField: [{ position: 10 }]
+      @UI.lineItem: [ { position: 20, importance: #HIGH },
+                      { type: #FOR_ACTION, dataAction: 'tamamla', label: 'Tamamla' } ]
+      @UI.identification: [ { position: 20 },
+                            { type: #FOR_ACTION, dataAction: 'tamamla', label: 'Tamamla' } ]
       @Search.defaultSearchElement: true
-      @Search.fuzzinessThreshold: 0.8
       @EndUserText.label: 'Başlık'
       Baslik,
 
@@ -54,5 +54,6 @@ define root view entity ZVDX_C_NOT
       OlusturmaSaati,
 
       @UI.hidden: true
-      Olusturma
+      Olusturma      
+
 }

@@ -8,6 +8,12 @@ CLASS lhc_notlar DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
       IMPORTING keys REQUEST requested_authorizations FOR Notlar RESULT result.
+
+    METHODS get_instance_features FOR INSTANCE FEATURES
+      IMPORTING keys REQUEST requested_features FOR Notlar RESULT result.
+
+    METHODS tamamla FOR MODIFY
+      IMPORTING keys FOR ACTION Notlar~tamamla RESULT result.
 ENDCLASS.
 
 CLASS lhc_notlar IMPLEMENTATION.
@@ -55,6 +61,66 @@ CLASS lhc_notlar IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_instance_authorizations.
-    " Şimdilik yetki kontrolü yok; herkes her şeyi yapabilir.
+    DATA lv_update_ok TYPE abap_bool.
+    DATA lv_delete_ok TYPE abap_bool.
+
+    AUTHORITY-CHECK OBJECT 'ZVDX_NOT' ID 'ACTVT' FIELD '02'.
+    lv_update_ok = xsdbool( sy-subrc = 0 ).
+
+    AUTHORITY-CHECK OBJECT 'ZVDX_NOT' ID 'ACTVT' FIELD '06'.
+    lv_delete_ok = xsdbool( sy-subrc = 0 ).
+
+    " Kural: tamamlanmış (Durum='T') not silinemez, yetki olsa bile
+    READ ENTITIES OF zvdx_r_not IN LOCAL MODE
+      ENTITY Notlar
+        FIELDS ( Durum ) WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_notlar).
+
+    result = VALUE #( FOR ls_not IN lt_notlar
+      ( %tky            = ls_not-%tky
+        %update         = COND #( WHEN lv_update_ok = abap_true
+                                  THEN if_abap_behv=>auth-allowed
+                                  ELSE if_abap_behv=>auth-unauthorized )
+        %action-tamamla = COND #( WHEN lv_update_ok = abap_true
+                                  THEN if_abap_behv=>auth-allowed
+                                  ELSE if_abap_behv=>auth-unauthorized )
+        %delete         = COND #( WHEN lv_delete_ok = abap_true AND ls_not-Durum <> 'T'
+                                  THEN if_abap_behv=>auth-allowed
+                                  ELSE if_abap_behv=>auth-unauthorized ) ) ).
+  ENDMETHOD.
+
+  METHOD tamamla.
+    " 1. Durum = 'T' yap
+    MODIFY ENTITIES OF zvdx_r_not IN LOCAL MODE
+      ENTITY Notlar
+        UPDATE FIELDS ( Durum )
+        WITH VALUE #( FOR key IN keys
+                      ( %tky  = key-%tky
+                        Durum = 'T' ) )
+      FAILED   failed
+      REPORTED reported.
+
+    " 2. Güncel halini oku ve result olarak döndür ($self)
+    READ ENTITIES OF zvdx_r_not IN LOCAL MODE
+      ENTITY Notlar
+        ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_notlar).
+
+    result = VALUE #( FOR ls_not IN lt_notlar
+                      ( %tky   = ls_not-%tky
+                        %param = ls_not ) ).
+  ENDMETHOD.
+
+  METHOD get_instance_features.
+    READ ENTITIES OF zvdx_r_not IN LOCAL MODE
+      ENTITY Notlar
+        FIELDS ( Durum ) WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_notlar).
+
+    result = VALUE #( FOR ls_not IN lt_notlar
+                      ( %tky            = ls_not-%tky
+                        %action-tamamla = COND #( WHEN ls_not-Durum = 'T'
+                                                  THEN if_abap_behv=>fc-o-disabled
+                                                  ELSE if_abap_behv=>fc-o-enabled ) ) ).
   ENDMETHOD.
 ENDCLASS.
