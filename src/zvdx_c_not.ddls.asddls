@@ -53,6 +53,11 @@ define root view entity ZVDX_C_NOT
       @EndUserText.label: 'Oluşturma Saati'
       OlusturmaSaati,
 
+      @UI.lineItem:       [{ position: 50, importance: #LOW }]
+      @UI.fieldGroup:     [{ qualifier: 'ZamanGrubu', position: 30 }]
+      @EndUserText.label: 'Oluşturan'
+      CreatedBy,
+      
       @UI.hidden: true
       Olusturma      
 

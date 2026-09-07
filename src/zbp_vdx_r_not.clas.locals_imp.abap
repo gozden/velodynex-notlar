@@ -14,6 +14,10 @@ CLASS lhc_notlar DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     METHODS tamamla FOR MODIFY
       IMPORTING keys FOR ACTION Notlar~tamamla RESULT result.
+
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR Notlar RESULT result.
+
 ENDCLASS.
 
 CLASS lhc_notlar IMPLEMENTATION.
@@ -73,7 +77,7 @@ CLASS lhc_notlar IMPLEMENTATION.
     " Kural: tamamlanmış (Durum='T') not silinemez, yetki olsa bile
     READ ENTITIES OF zvdx_r_not IN LOCAL MODE
       ENTITY Notlar
-        FIELDS ( Durum ) WITH CORRESPONDING #( keys )
+        FIELDS ( Durum CreatedBy ) WITH CORRESPONDING #( keys )
       RESULT DATA(lt_notlar).
 
     result = VALUE #( FOR ls_not IN lt_notlar
@@ -84,9 +88,9 @@ CLASS lhc_notlar IMPLEMENTATION.
         %action-tamamla = COND #( WHEN lv_update_ok = abap_true
                                   THEN if_abap_behv=>auth-allowed
                                   ELSE if_abap_behv=>auth-unauthorized )
-        %delete         = COND #( WHEN lv_delete_ok = abap_true AND ls_not-Durum <> 'T'
-                                  THEN if_abap_behv=>auth-allowed
-                                  ELSE if_abap_behv=>auth-unauthorized ) ) ).
+        %delete = COND #( WHEN lv_delete_ok = abap_true AND ls_not-CreatedBy = sy-uname
+                     THEN if_abap_behv=>auth-allowed
+                     ELSE if_abap_behv=>auth-unauthorized ) ) ).
   ENDMETHOD.
 
   METHOD tamamla.
@@ -121,6 +125,18 @@ CLASS lhc_notlar IMPLEMENTATION.
                       ( %tky            = ls_not-%tky
                         %action-tamamla = COND #( WHEN ls_not-Durum = 'T'
                                                   THEN if_abap_behv=>fc-o-disabled
+                                                  ELSE if_abap_behv=>fc-o-enabled )
+                        %delete         = COND #( WHEN ls_not-Durum = 'T'
+                                                  THEN if_abap_behv=>fc-o-disabled
                                                   ELSE if_abap_behv=>fc-o-enabled ) ) ).
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
+    IF requested_authorizations-%create = if_abap_behv=>mk-on.
+      AUTHORITY-CHECK OBJECT 'ZVDX_NOT' ID 'ACTVT' FIELD '01'.
+      result-%create = COND #( WHEN sy-subrc = 0
+                               THEN if_abap_behv=>auth-allowed
+                               ELSE if_abap_behv=>auth-unauthorized ).
+    ENDIF.
   ENDMETHOD.
 ENDCLASS.

@@ -21,5 +21,9 @@ define root view entity ZVDX_R_NOT
                      $session.client, 'NULL' ) as OlusturmaSaati,
 
       @Semantics.systemDateTime.createdAt: true
-      olusturma as Olusturma
+      olusturma as Olusturma,
+      
+      @Semantics.user.createdBy: true
+      created_by as CreatedBy
+         
 }
