@@ -47,3 +47,20 @@ Tarayıcı (Fiori Launchpad, GOZDE)
 - `ui5/`, `abap/` — aynı kodun elle derlenmiş, okunması kolay kopyası.
   Tutarsızlık olursa `src/` geçerlidir.
 - Yeniden kurulum: abapGit → New Online/Offline → bu repo → Pull.
+- 
+## OData V4 / Fiori Elements V4 (Konu 15)
+
+- Service Binding `ZVDX_SB_NOT_O4` (OData V4 – UI), aynı service definition `ZVDX_SD_NOT` üzerinde.
+  abapGit pull sonrası V2 binding gibi ADT'den **elle Publish** edilmeli.
+  Servis adresi: `/sap/opu/odata4/sap/zvdx_sb_not_o4/srvd/sap/zvdx_sd_not/0001/`
+- V4 service group yetkisi S_SERVICE değil **S_START** (`R3TR` / `G4BA` / `ZVDX_SB_NOT_O4`).
+  Rol menüsüne *Authorization Default* ile eklenir, sonra profil generate edilir.
+- BSP `ZVDX_NOT_FE4`: `index.htm` BSP *sayfası* (MIME değil); `Component.js` ve `manifest.json` MIME.
+  Launchpad target mapping `ZVDXNotFE4-display` → URL `/sap/bc/bsp/sap/zvdx_not_fe4/index.htm`.
+- FE V4 tek başına çalışırken container'a %100 yükseklik gerekir (`data-height="100%"`,
+  html/body height) — yoksa ekran boş kalır. `initialLoad: "Enabled"` listeyi Go'suz yükler.
+- GOZDE ile doğrulanan davranış farkı: instance seviyesindeki feature/authorization kontrolleri
+  butonu *devre dışı* gösterir; global create yetkisi (ACTVT 01) yoksa V4 Create butonunu hiç
+  çizmez, V2 ise butonu gösterip backend'de reddeder.
+- Kısıtlı kullanıcı için Launchpad runtime: `SAP_FLP_USER` Z role kopyalanıp generate edilmeli —
+  SAP template rolleri profil taşımaz.
