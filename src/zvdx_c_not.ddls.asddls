@@ -59,6 +59,11 @@ define root view entity ZVDX_C_NOT
       CreatedBy,
       
       @UI.hidden: true
-      Olusturma      
+      Olusturma,      
+
+      @UI.hidden: true
+      LastChangedAt,
+      @UI.hidden: true
+      LocalLastChangedAt
 
 }

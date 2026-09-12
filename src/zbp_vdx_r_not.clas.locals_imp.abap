@@ -18,32 +18,32 @@ CLASS lhc_notlar DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
       IMPORTING REQUEST requested_authorizations FOR Notlar RESULT result.
 
+    METHODS validateBaslik FOR VALIDATE ON SAVE
+      IMPORTING keys FOR Notlar~validateBaslik.
+
 ENDCLASS.
 
 CLASS lhc_notlar IMPLEMENTATION.
 
   METHOD earlynumbering_create.
-    LOOP AT entities INTO DATA(ls_entity).
-      IF ls_entity-NotId IS NOT INITIAL.
-        APPEND CORRESPONDING #( ls_entity ) TO mapped-notlar.
-        CONTINUE.
-      ENDIF.
+    " Anahtarı zaten dolu gelenler (Activate yolu): olduğu gibi geri ver
+    LOOP AT entities INTO DATA(entity) WHERE NotId IS NOT INITIAL.
+      APPEND CORRESPONDING #( entity ) TO mapped-notlar.
+    ENDLOOP.
 
+    " Anahtarsız gelenler (yeni draft / doğrudan create): üret
+    LOOP AT entities INTO entity WHERE NotId IS INITIAL.
       TRY.
-          DATA(lv_uuid) = cl_system_uuid=>create_uuid_c32_static( ).
+          DATA(uuid) = cl_system_uuid=>create_uuid_c32_static( ).
         CATCH cx_uuid_error.
-          APPEND VALUE #( %cid = ls_entity-%cid ) TO failed-notlar.
-          APPEND VALUE #( %cid = ls_entity-%cid
-                          %msg = new_message_with_text(
-                                   severity = if_abap_behv_message=>severity-error
-                                   text     = 'UUID üretilemedi' ) )
-                 TO reported-notlar.
+          APPEND VALUE #( %cid      = entity-%cid
+                          %is_draft = entity-%is_draft ) TO failed-notlar.
           CONTINUE.
       ENDTRY.
 
-      APPEND VALUE #( %cid  = ls_entity-%cid
-                      %key  = ls_entity-%key
-                      NotId = lv_uuid ) TO mapped-notlar.
+      APPEND VALUE #( %cid      = entity-%cid
+                      %is_draft = entity-%is_draft
+                      NotId     = uuid ) TO mapped-notlar.
     ENDLOOP.
   ENDMETHOD.
 
@@ -138,5 +138,27 @@ CLASS lhc_notlar IMPLEMENTATION.
                                THEN if_abap_behv=>auth-allowed
                                ELSE if_abap_behv=>auth-unauthorized ).
     ENDIF.
+  ENDMETHOD.
+
+  METHOD validateBaslik.
+    READ ENTITIES OF zvdx_r_not IN LOCAL MODE
+      ENTITY Notlar
+        FIELDS ( Baslik ) WITH CORRESPONDING #( keys )
+      RESULT DATA(notlar).
+
+    LOOP AT notlar INTO DATA(satir).
+      IF satir-Baslik IS INITIAL.
+        APPEND VALUE #( %tky = satir-%tky ) TO failed-notlar.
+        APPEND VALUE #( %tky        = satir-%tky
+                        %state_area = 'VALIDATE_BASLIK'
+                        %msg        = new_message_with_text(
+                                        severity = if_abap_behv_message=>severity-error
+                                        text     = 'Başlık boş olamaz' )
+                        %element-baslik = if_abap_behv=>mk-on ) TO reported-notlar.
+      ELSE.
+        APPEND VALUE #( %tky        = satir-%tky
+                        %state_area = 'VALIDATE_BASLIK' ) TO reported-notlar.
+      ENDIF.
+    ENDLOOP.
   ENDMETHOD.
 ENDCLASS.

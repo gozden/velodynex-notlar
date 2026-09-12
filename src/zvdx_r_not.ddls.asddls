@@ -24,6 +24,11 @@ define root view entity ZVDX_R_NOT
       olusturma as Olusturma,
       
       @Semantics.user.createdBy: true
-      created_by as CreatedBy
+      created_by as CreatedBy,
+      
+      @Semantics.systemDateTime.lastChangedAt: true
+      last_changed_at       as LastChangedAt,
+      @Semantics.systemDateTime.localInstanceLastChangedAt: true
+      local_last_changed_at as LocalLastChangedAt
          
 }

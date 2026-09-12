@@ -1,23 +1,33 @@
 managed implementation in class zbp_vdx_r_not unique;
 strict ( 2 );
+with draft;
 
 define behavior for ZVDX_R_NOT alias Notlar
-
 persistent table zvdx_notlar
-lock master
-authorization master ( global, instance )
+draft table zvdx_notlar_d
 early numbering
+lock master total etag LastChangedAt
+authorization master ( global, instance )
+etag master LocalLastChangedAt
 {
   create;
   update;
   delete ( features : instance );
 
   action ( features : instance ) tamamla result [1] $self;
+  validation validateBaslik on save { create; field Baslik; }
 
-  field ( readonly ) NotId, Olusturma, DurumText, OlusturmaTarihi, OlusturmaSaati, CreatedBy;
+  field ( readonly ) NotId, Olusturma, DurumText, OlusturmaTarihi, OlusturmaSaati,
+  CreatedBy, LastChangedAt, LocalLastChangedAt ;
   field ( mandatory ) Baslik;
 
   determination setDurumVarsayilan on modify { create; }
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare { validation validateBaslik; }
 
   mapping for zvdx_notlar
   {
@@ -26,5 +36,7 @@ early numbering
     Durum     = durum;
     Olusturma = olusturma;
     CreatedBy = created_by;
+    LastChangedAt      = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
   }
 }
