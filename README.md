@@ -64,3 +64,31 @@ Tarayıcı (Fiori Launchpad, GOZDE)
   çizmez, V2 ise butonu gösterip backend'de reddeder.
 - Kısıtlı kullanıcı için Launchpad runtime: `SAP_FLP_USER` Z role kopyalanıp generate edilmeli —
   SAP template rolleri profil taşımaz.
+
+## Konu 16 — Draft (RAP managed, FE V4)
+
+BO draft'a çevrildi: `with draft`, draft tablosu `ZVDX_NOTLAR_D`,
+`lock master total etag LastChangedAt`, `etag master LocalLastChangedAt`,
+beş standart draft action (Edit/Activate/Discard/Resume/Prepare),
+projection BDEF'te `use draft`.
+
+Doğrulananlar: kaydetmeden çıkma → Keep/Discard diyaloğu, draft tablosunda
+satır / aktif tabloda eski değer, Resume, başka kullanıcıda kilit
+("… tarafından düzenleniyor"), Prepare üzerinden validation (boş başlık).
+
+Öğrenilenler:
+- **%is_draft**: draft açılınca `mapped`/`failed`/`reported` satırlarına
+  `%is_draft` eklenmeli; yoksa `CX_CSP_ACT_RESPONSE` (EVALUATE_DIRECT_CREATE).
+- **Early numbering idempotent olmalı**: Activate create'i anahtar dolu olarak
+  yeniden çağırır; anahtarlı gelenler `mapped`'e aynen geri yazılır,
+  sadece anahtarsızlar üretilir.
+- FE V4'te alan değeri backend'e alanın `change` olayında (Tab/blur) gider;
+  yazıp doğrudan geri gidince draft'a düşmez ("Taslak kaydedildi" beklenir).
+- Managed RAP `createdBy`'ı draft anında, `createdAt`'ı aktivasyonda doldurur.
+- Tablodaki timestamp UTC; FE yalnızca gerçek timestamp alanlarını yerel saate
+  çevirir — CDS'te türetilmiş saat alanı UTC kalır (Konu 18'de düzeltilecek).
+- Preview BPINST ile çalışır; SAP_ALL sonradan yaratılan `ZVDX_NOT`'u
+  kapsamıyordu (SU53). Çözüm: `Z_VDX_DEV` rolü (ACTVT 01/02/06) → BPINST.
+  GOZDE bilerek 01'siz kaldı.
+- Validation'da `%state_area` kullan; başarı dalında aynı alana boş kayıt
+  atılmazsa mesaj draft'a yapışık kalır.
