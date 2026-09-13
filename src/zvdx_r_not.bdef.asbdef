@@ -27,7 +27,9 @@ etag master LocalLastChangedAt
   draft action Activate optimized;
   draft action Discard;
   draft action Resume;
+
   draft determine action Prepare { validation validateBaslik; }
+    association _Adimlar { create; with draft; }
 
   mapping for zvdx_notlar
   {
@@ -36,6 +38,32 @@ etag master LocalLastChangedAt
     Durum     = durum;
     Olusturma = olusturma;
     CreatedBy = created_by;
+    LastChangedAt      = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+  }
+
+  define behavior for ZVDX_R_ADIM alias Adimlar
+persistent table zvdx_adimlar
+draft table zvdx_adimlar_d
+early numbering
+lock dependent by _Not
+authorization dependent by _Not
+etag master LocalLastChangedAt
+{
+  update;
+  delete;
+  field ( readonly ) AdimId, NotId, LastChangedAt, LocalLastChangedAt;
+
+  association _Not { with draft; }
+
+  mapping for zvdx_adimlar
+  {
+    AdimId             = adim_id;
+    NotId              = not_id;
+    Sira               = sira;
+    Aciklama           = aciklama;
+    Tamam              = tamam;
     LastChangedAt      = last_changed_at;
     LocalLastChangedAt = local_last_changed_at;
   }

@@ -21,6 +21,8 @@ CLASS lhc_notlar DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS validateBaslik FOR VALIDATE ON SAVE
       IMPORTING keys FOR Notlar~validateBaslik.
 
+    METHODS earlynumbering_cba_Adimlar FOR NUMBERING
+      IMPORTING entities FOR CREATE Notlar\_Adimlar.
 ENDCLASS.
 
 CLASS lhc_notlar IMPLEMENTATION.
@@ -166,6 +168,31 @@ CLASS lhc_notlar IMPLEMENTATION.
         APPEND VALUE #( %tky        = satir-%tky
                         %state_area = 'VALIDATE_BASLIK' ) TO reported-notlar.
       ENDIF.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD earlynumbering_cba_Adimlar.
+    LOOP AT entities INTO DATA(entity).
+      LOOP AT entity-%target INTO DATA(adim).
+
+        " Anahtarı dolu gelenler (Activate yolu): aynen geri ver
+        IF adim-AdimId IS NOT INITIAL.
+          APPEND CORRESPONDING #( adim ) TO mapped-adimlar.
+          CONTINUE.
+        ENDIF.
+
+        TRY.
+            DATA(uuid) = cl_system_uuid=>create_uuid_c32_static( ).
+          CATCH cx_uuid_error.
+            APPEND VALUE #( %cid      = adim-%cid
+                            %is_draft = adim-%is_draft ) TO failed-adimlar.
+            CONTINUE.
+        ENDTRY.
+
+        APPEND VALUE #( %cid      = adim-%cid
+                        %is_draft = adim-%is_draft
+                        AdimId    = uuid ) TO mapped-adimlar.
+      ENDLOOP.
     ENDLOOP.
   ENDMETHOD.
 ENDCLASS.

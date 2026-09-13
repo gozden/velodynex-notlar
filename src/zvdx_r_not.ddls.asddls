@@ -1,11 +1,13 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Notlar - Root (RAP BO)'
 define root view entity ZVDX_R_NOT
-  as select from zvdx_notlar
+  as select from zvdx_notlar 
+    composition [0..*] of ZVDX_R_ADIM as _Adimlar
 {
   key not_id    as NotId,
       baslik    as Baslik,
       durum     as Durum,
+            _Adimlar,
 
       case durum
         when 'T' then 'Tamamlandı'

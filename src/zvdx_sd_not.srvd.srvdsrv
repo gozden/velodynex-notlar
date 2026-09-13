@@ -1,4 +1,5 @@
 @EndUserText.label: 'Notlar Servisi'
 define service ZVDX_SD_NOT {
-  expose ZVDX_C_NOT as Notlar;
+  expose ZVDX_C_NOT  as Notlar;
+  expose ZVDX_C_ADIM as Adimlar;
 }

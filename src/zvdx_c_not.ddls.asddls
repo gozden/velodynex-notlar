@@ -11,12 +11,15 @@
 define root view entity ZVDX_C_NOT
   provider contract transactional_query
   as projection on ZVDX_R_NOT
+
 {
       @UI.facet: [
         { id: 'GenelBilgiler', type: #IDENTIFICATION_REFERENCE,
           label: 'Genel Bilgiler', position: 10 },
         { id: 'Zaman', type: #FIELDGROUP_REFERENCE,
-          targetQualifier: 'ZamanGrubu', label: 'Oluşturma Bilgisi', position: 20 }
+          targetQualifier: 'ZamanGrubu', label: 'Oluşturma Bilgisi', position: 20 },
+      { id: 'Adimlar', purpose: #STANDARD, type: #LINEITEM_REFERENCE,
+      label: 'Adımlar', position: 30, targetElement: '_Adimlar' }
       ]
 
       @UI.lineItem:       [{ position: 10, importance: #LOW }]
@@ -57,13 +60,15 @@ define root view entity ZVDX_C_NOT
       @UI.fieldGroup:     [{ qualifier: 'ZamanGrubu', position: 30 }]
       @EndUserText.label: 'Oluşturan'
       CreatedBy,
-      
+
       @UI.hidden: true
-      Olusturma,      
+      Olusturma,
 
       @UI.hidden: true
       LastChangedAt,
       @UI.hidden: true
-      LocalLastChangedAt
+      LocalLastChangedAt,
+
+      _Adimlar : redirected to composition child ZVDX_C_ADIM
 
 }
