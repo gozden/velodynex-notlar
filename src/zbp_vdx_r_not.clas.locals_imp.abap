@@ -118,17 +118,24 @@ CLASS lhc_notlar IMPLEMENTATION.
   METHOD get_instance_features.
     READ ENTITIES OF zvdx_r_not IN LOCAL MODE
       ENTITY Notlar
-        FIELDS ( Durum ) WITH CORRESPONDING #( keys )
-      RESULT DATA(lt_notlar).
+        FIELDS ( Durum CreatedBy ) WITH CORRESPONDING #( keys )
+      RESULT DATA(notlar).
 
-    result = VALUE #( FOR ls_not IN lt_notlar
-                      ( %tky            = ls_not-%tky
-                        %action-tamamla = COND #( WHEN ls_not-Durum = 'T'
-                                                  THEN if_abap_behv=>fc-o-disabled
-                                                  ELSE if_abap_behv=>fc-o-enabled )
-                        %delete         = COND #( WHEN ls_not-Durum = 'T'
-                                                  THEN if_abap_behv=>fc-o-disabled
-                                                  ELSE if_abap_behv=>fc-o-enabled ) ) ).
+    result = VALUE #( FOR satir IN notlar
+      ( %tky = satir-%tky
+
+        " Draft'ta action kapalı: önce Save, sonra Tamamla
+        %action-tamamla = COND #(
+          WHEN satir-%is_draft = if_abap_behv=>mk-on THEN if_abap_behv=>fc-o-disabled
+          WHEN satir-Durum = 'T'                     THEN if_abap_behv=>fc-o-disabled
+          ELSE if_abap_behv=>fc-o-enabled )
+
+        " Draft'ta Delete = Discard, serbest; aktifte eski kural
+        %delete = COND #(
+          WHEN satir-%is_draft = if_abap_behv=>mk-on THEN if_abap_behv=>fc-o-enabled
+          WHEN satir-Durum = 'T'                     THEN if_abap_behv=>fc-o-disabled
+          WHEN satir-CreatedBy <> sy-uname           THEN if_abap_behv=>fc-o-disabled
+          ELSE if_abap_behv=>fc-o-enabled ) ) ).
   ENDMETHOD.
 
   METHOD get_global_authorizations.

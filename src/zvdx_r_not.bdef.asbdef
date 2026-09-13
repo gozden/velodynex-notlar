@@ -17,7 +17,7 @@ etag master LocalLastChangedAt
   action ( features : instance ) tamamla result [1] $self;
   validation validateBaslik on save { create; field Baslik; }
 
-  field ( readonly ) NotId, Olusturma, DurumText, OlusturmaTarihi, OlusturmaSaati,
+  field ( readonly ) NotId, Olusturma, Durum, DurumText, OlusturmaTarihi, OlusturmaSaati,
   CreatedBy, LastChangedAt, LocalLastChangedAt ;
   field ( mandatory ) Baslik;
 
