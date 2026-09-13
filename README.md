@@ -175,6 +175,46 @@ Tamamla kapalı, Save sonrası aktif.
   başkalarının listesinde "Locked by …" görünür. Gerçek sistemde `SAP_DRAFT_CLEANUP`.
 - Validation geriye dönük çalışmaz; kural eklenmeden önceki boş başlıklı kayıt elle silindi.
 
+### Konu 17 — Composition (parent-child: Not → Adımlar)
+
+Tablo `ZVDX_ADIMLAR` (key `adim_id`; `not_id`, `sira`, `aciklama`, `tamam`, etag alanları)
++ draft tablosu `ZVDX_ADIMLAR_D`. Child root view `ZVDX_R_ADIM` (`association to parent
+ZVDX_R_NOT as _Not`), parent'ta `composition [0..*] of ZVDX_R_ADIM as _Adimlar`.
+Projection `ZVDX_C_ADIM` (`_Not : redirected to parent`), `ZVDX_C_NOT`'ta `_Adimlar :
+redirected to composition child` + `#LINEITEM_REFERENCE` facet "Adımlar".
+BDEF: child bloğu `lock dependent by _Not`, `authorization dependent by _Not`,
+`etag master LocalLastChangedAt`, `early numbering`; child'da `create` **yok** —
+parent'ta `association _Adimlar { create; with draft; }`, child'da
+`association _Not { with draft; }`. Anahtar `earlynumbering_cba_Adimlar` (parent
+handler'ında). Service definition `expose ZVDX_C_ADIM as Adimlar`; iki binding yeniden
+publish.
+
+Doğrulananlar: Object Page'de Adımlar tablosu, satır ekle/sil/Save, satırın `>` ile açılan
+alt Object Page'i, child draft (Keep → `_D`'de satır / Discard → temiz), **parent silinince
+adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı LUW
+(adımların `LAST_CHANGED_AT` değerleri eşit).
+
+Öğrenilenler:
+- **Composition = sahiplik.** Child parent'sız yaratılamaz; parent'ın kilidi, yetkisi ve
+  draft'ı child'a iner; parent silinince child silinir. BDEF karşılıkları: `lock dependent`,
+  `authorization dependent`, `with draft`; cascade için ek bir şey yok.
+- **Create-by-association (CBA):** child'ın yaratma isteği parent üzerinden gelir;
+  numbering metodu parent handler'ında (`entities` = parent satırları, child'lar
+  `%target` içinde). Child'da doğrudan `create` olsaydı parent'sız adım yaratılabilirdi.
+- **`mapped` yalnızca key alanlarını taşır:** `mapped-adimlar`'da `AdimId` var, `NotId`
+  yok ("No component exists with the name NOTID"). Parent anahtarını CBA'da framework
+  doldurur.
+- **Dependent authorization:** adım silmek/eklemek = notu değiştirmek → parent'ın
+  `get_instance_authorizations`'ında **`%update` (ACTVT 02)** sorulur; child için ayrı
+  SU21 nesnesi gerekmez.
+- Child Delete draft'ta işaretlenir, aktif satır Save'e kadar durur (draft izolasyonu
+  child'da da geçerli).
+- `LastChangedAt` (total etag) yalnız Activate'te, `LocalLastChangedAt` (etag) her draft
+  değişikliğinde yazılır — draft satırında ilki 0, ikincisi dolu.
+- BDEF'te her `define behavior` kendi `{ }` çiftine sahiptir, iç içe olmaz.
+- SE16 sonuç ekranı anlık görüntüdür; her kontrolden önce F8.
+- `abap_boolean` FE'de Yes/No metin olarak çizilir (checkbox → Konu 18).
+
 | | FE V2 | FE V4 |
 |---|---|---|
 | Kaydetmeden çıkış diyaloğu | Save / Keep Draft / Discard | Keep Draft / Discard |
@@ -215,46 +255,6 @@ Tamamla kapalı, Save sonrası aktif.
 | GOZDE | 02, 06 (01 yok) | Create V2'de görünür/reddedilir, V4'te yok; kendi açık notunu siler |
 | BPINST | 01, 02, 06 (`Z_VDX_DEV`) | Geliştirme + Preview |
 
-### Konu 17 — Composition (parent-child: Not → Adımlar)
-
-Tablo `ZVDX_ADIMLAR` (key `adim_id`; `not_id`, `sira`, `aciklama`, `tamam`, etag alanları)
-+ draft tablosu `ZVDX_ADIMLAR_D`. Child root view `ZVDX_R_ADIM` (`association to parent
-ZVDX_R_NOT as _Not`), parent'ta `composition [0..*] of ZVDX_R_ADIM as _Adimlar`.
-Projection `ZVDX_C_ADIM` (`_Not : redirected to parent`), `ZVDX_C_NOT`'ta `_Adimlar :
-redirected to composition child` + `#LINEITEM_REFERENCE` facet "Adımlar".
-BDEF: child bloğu `lock dependent by _Not`, `authorization dependent by _Not`,
-`etag master LocalLastChangedAt`, `early numbering`; child'da `create` **yok** —
-parent'ta `association _Adimlar { create; with draft; }`, child'da
-`association _Not { with draft; }`. Anahtar `earlynumbering_cba_Adimlar` (parent
-handler'ında). Service definition `expose ZVDX_C_ADIM as Adimlar`; iki binding yeniden
-publish.
-
-Doğrulananlar: Object Page'de Adımlar tablosu, satır ekle/sil/Save, satırın `>` ile açılan
-alt Object Page'i, child draft (Keep → `_D`'de satır / Discard → temiz), **parent silinince
-adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı LUW
-(adımların `LAST_CHANGED_AT` değerleri eşit).
-
-Öğrenilenler:
-- **Composition = sahiplik.** Child parent'sız yaratılamaz; parent'ın kilidi, yetkisi ve
-  draft'ı child'a iner; parent silinince child silinir. BDEF karşılıkları: `lock dependent`,
-  `authorization dependent`, `with draft`; cascade için ek bir şey yok.
-- **Create-by-association (CBA):** child'ın yaratma isteği parent üzerinden gelir;
-  numbering metodu parent handler'ında (`entities` = parent satırları, child'lar
-  `%target` içinde). Child'da doğrudan `create` olsaydı parent'sız adım yaratılabilirdi.
-- **`mapped` yalnızca key alanlarını taşır:** `mapped-adimlar`'da `AdimId` var, `NotId`
-  yok ("No component exists with the name NOTID"). Parent anahtarını CBA'da framework
-  doldurur.
-- **Dependent authorization:** adım silmek/eklemek = notu değiştirmek → parent'ın
-  `get_instance_authorizations`'ında **`%update` (ACTVT 02)** sorulur; child için ayrı
-  SU21 nesnesi gerekmez.
-- Child Delete draft'ta işaretlenir, aktif satır Save'e kadar durur (draft izolasyonu
-  child'da da geçerli).
-- `LastChangedAt` (total etag) yalnız Activate'te, `LocalLastChangedAt` (etag) her draft
-  değişikliğinde yazılır — draft satırında ilki 0, ikincisi dolu.
-- BDEF'te her `define behavior` kendi `{ }` çiftine sahiptir, iç içe olmaz.
-- SE16 sonuç ekranı anlık görüntüdür; her kontrolden önce F8.
-- `abap_boolean` FE'de Yes/No metin olarak çizilir (checkbox → Konu 18).
-- 
 ## Plan
 
 - **Konu 18** — Annotation cilası: value help, criticality (Durum renkli), `@Search`,
