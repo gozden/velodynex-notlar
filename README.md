@@ -1,12 +1,14 @@
 # velodynex-notlar — SAP Fiori / RAP Çalışma Günlüğü
 
 Kişisel SAP Fiori öğrenme projesi. Aynı iş nesnesi ("Not") önce klasik SEGW + UI5 ile,
-sonra Fiori Elements V2, RAP managed, OData V4 / FE V4 ve draft ile uçtan uca yeniden
-kuruldu. Her konu bir önceki üzerine inşa edilir; kod bu repoda, gerekçeler bu dosyada.
+sonra Fiori Elements V2, RAP managed, OData V4 / FE V4, draft ve composition ile uçtan
+uca yeniden kuruldu. Her konu bir önceki üzerine inşa edilir; kod bu repoda, gerekçeler
+bu dosyada.
 
 **Ortam:** SAP S/4HANA 2025 Fully-Activated Appliance (SAP CAL, deneme).
 Geliştirme: ADT (Eclipse), kullanıcı **BPINST**. Son kullanıcı testi: **GOZDE**.
-Paket: `ZVELODYNEX` (software component HOME). Adlandırma: `ZVDX_*`.
+Paket: `ZVELODYNEX` (software component HOME). Adlandırma: `ZVDX_*`;
+`_R_` root, `_C_` projection/consumption, `_I_` interface, `_VH` value help.
 Sürüm yönetimi: abapGit standalone (offline zip) → bu repo.
 
 ---
@@ -137,11 +139,14 @@ BO draft'a çevrildi: `with draft`, draft tablosu `ZVDX_NOTLAR_D` (`%admin` incl
 draft action (`Edit / Activate optimized / Discard / Resume / Prepare`), projection BDEF
 `use draft` + `use action` satırları. Validation `validateBaslik on save { create; field
 Baslik; }`, Prepare içinde çalışır (`%state_area`, `%element-baslik`).
+`get_instance_features`: `%is_draft = mk-on` → `tamamla` kapalı (önce Save, sonra
+Tamamla). `Durum` `field ( readonly )` listesine alındı (draft'ta düzenlenebilir
+görünüyordu).
 
 Doğrulananlar (V4 tile + V2 tile, GOZDE): kaydetmeden çıkış → Keep/Discard diyaloğu,
 `_D`'de satır / aktifte eski değer, listede draft göstergesi, Resume, başka kullanıcıda
 kilit ("… tarafından düzenleniyor"), Prepare üzerinden validation (boş başlık), draft'ta
-Tamamla kapalı, Save sonrası aktif.
+Tamamla gri, Save sonrası aktif.
 
 Öğrenilenler:
 - **`%is_draft`:** draft açılınca `mapped` / `failed` / `reported` satırlarına
@@ -154,29 +159,37 @@ Tamamla kapalı, Save sonrası aktif.
   koşar ve kaydı engeller — fark, mesajın alana bağlı ve kalıcı olması. Başarı dalında
   aynı `%state_area`'ya boş kayıt atılmazsa mesaj draft'a yapışık kalır.
 - **Draft'ta instance action:** action draft'ta çalışırsa değişiklik yalnızca draft'a
-  yazılır; kullanıcı Save'e basmadan çıkarsa kaybolur. `get_instance_features`'ta
-  `%is_draft = mk-on` → `tamamla` kapalı. Kural: önce Save, sonra Tamamla.
-- **Field control:** `Durum` draft'ta düzenlenebilir görünüyordu → BDEF
-  `field ( readonly )`. Hem `$metadata`'ya iner hem backend'de zorlanır. Dördüncü katman:
-  global auth / instance auth / instance features / **field control**.
+  yazılır; Save'siz çıkınca kaybolur.
+- **Field control:** `field ( readonly )` hem `$metadata`'ya iner hem backend'de
+  zorlanır. Dördüncü katman: global auth / instance auth / instance features / **field
+  control**.
 - **Yetki eşlemesi:** aktif karşılığı olmayan draft'ın `update`'i **create (01)** yetkisiyle
   denetlenir. Preview her zaman BPINST'tir; SAP_ALL sonradan yaratılan `ZVDX_NOT`'u
   kapsamadığından BPINST ilk kez 01'e takıldı (SU53). Çözüm: `Z_VDX_DEV` rolü
   (ACTVT 01/02/06) → BPINST. GOZDE bilerek 01'siz.
 - FE V4'te alan değeri backend'e alanın `change` olayında (Tab/blur, "Taslak kaydedildi")
   gider; yazıp doğrudan geri gidince draft'a düşmez.
-- Managed RAP `createdBy`'ı draft anında, `createdAt`'ı **aktivasyonda** doldurur.
+- Managed RAP `createdBy` ve `createdAt`'ı **draft anında** doldurur; draft'ta boş görünen,
+  türetilmiş (CASE/fonksiyon) alanlardır — draft satırında yeniden hesaplanmazlar
+  (Konu 18'de netleşti).
 - Tablodaki timestamp UTC; FE yalnızca gerçek timestamp alanlarını yerel saate çevirir —
-  CDS'te türetilmiş saat alanı UTC kalır (Konu 18'de düzeltilecek).
+  CDS'te türetilmiş saat alanı UTC kalır (Konu 18'de düzeltildi).
 - FE V4 draft modunda Delete yerine "Discard Draft" gösterir; `%delete` draft için
-  sorulmaz. Draft'ta silme = `Discard`.
+  sorulmaz.
 - Gateway V2 RAP draft'ı olduğu gibi taşır (`/IWFND/CACHE_CLEANUP` sonrası).
 - Draft'lar oturumla ölmez: Preview'ı kapatmak Discard değildir; kilitli draft'lar
   başkalarının listesinde "Locked by …" görünür. Gerçek sistemde `SAP_DRAFT_CLEANUP`.
 - Validation geriye dönük çalışmaz; kural eklenmeden önceki boş başlıklı kayıt elle silindi.
 
-### Konu 17 — Composition (parent-child: Not → Adımlar)
+| | FE V2 | FE V4 |
+|---|---|---|
+| Kaydetmeden çıkış diyaloğu | Save / Keep Draft / Discard | Keep Draft / Discard |
+| Draft'ta silme | Delete | Discard Draft (alt çubuk) |
+| Aktif/draft karşılaştırma | "Display Saved Version" | — |
+| Global yetki yoksa Create | görünür, backend reddeder | hiç yok |
+| Instance feature kapalı | gizli | gri |
 
+### Konu 17 — Composition (parent-child: Not → Adımlar)
 Tablo `ZVDX_ADIMLAR` (key `adim_id`; `not_id`, `sira`, `aciklama`, `tamam`, etag alanları)
 + draft tablosu `ZVDX_ADIMLAR_D`. Child root view `ZVDX_R_ADIM` (`association to parent
 ZVDX_R_NOT as _Not`), parent'ta `composition [0..*] of ZVDX_R_ADIM as _Adimlar`.
@@ -213,15 +226,38 @@ adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı 
   değişikliğinde yazılır — draft satırında ilki 0, ikincisi dolu.
 - BDEF'te her `define behavior` kendi `{ }` çiftine sahiptir, iç içe olmaz.
 - SE16 sonuç ekranı anlık görüntüdür; her kontrolden önce F8.
-- `abap_boolean` FE'de Yes/No metin olarak çizilir (checkbox → Konu 18).
+- LUW = Logical Unit of Work; RAP save sequence tek LUW'dur, handler'da `COMMIT WORK`
+  yazılmaz.
 
-| | FE V2 | FE V4 |
-|---|---|---|
-| Kaydetmeden çıkış diyaloğu | Save / Keep Draft / Discard | Keep Draft / Discard |
-| Draft'ta silme | Delete | Discard Draft (alt çubuk) |
-| Aktif/draft karşılaştırma | "Display Saved Version" | — |
-| Global yetki yoksa Create | görünür, backend reddeder | hiç yok |
-| Instance feature kapalı | gizli | gri |
+### Konu 18 — Annotation cilası (MDE, criticality, value help, timestamp)
+- **Metadata Extension** `ZVDX_C_NOT` ve `ZVDX_C_ADIM` (`@Metadata.layer: #CUSTOMER`):
+  tüm `@UI.*` projection'lardan MDE'ye taşındı; projection'da yalnız `@EndUserText`,
+  `@Search`, `@Consumption` kaldı. Kanıt: MDE'de Başlık position 5 → form sırası değişti,
+  projection'a dokunulmadı. Standart uygulama uyarlamasının RAP yolu. Child'a
+  `@UI.headerInfo` eklendi (alt sayfa başlığı ve kırıntı düzeldi).
+- **Criticality:** `ZVDX_R_NOT`'a `DurumKritiklik` (CASE: T→3 yeşil, A→2 sarı, 0 nötr);
+  MDE'de `criticality:` ile Durum, DurumText ve headerInfo description renkli.
+  Root'a alan eklemek draft tablosunun **recreate**'ini gerektirdi.
+- **Value help:** `@Consumption.valueHelpDefinition` → `ZVDX_I_DURUM_VH`. Domain
+  `ZVDX_DURUM` (A/T) yaratıldı ama `DDCDS_CUSTOMER_DOMAIN_VALUE_T` bu appliance'ta boş
+  döndü; VH `select distinct from ZVDX_R_NOT` ile kuruldu (yalnız kullanımda olan
+  değerler). Filtre çubuğunda çoklu seçimli dropdown ("A (Açık)", `#TEXT_LAST`, `#XS`).
+- **Timestamp:** `OlusturmaSaati` (türetilmiş, UTC) gizlendi; `Olusturma` timestamp'i ve
+  `LastChangedAt` field group'a alındı → FE yerel saate çevirdi (05:07 UTC → 08:07).
+- **Boolean:** `abap_boolean` görüntüleme modunda Yes/No, düzenlemede checkbox — düzeltme
+  gerekmedi.
+
+Öğrenilenler:
+- **Draft'ta türetilmiş alan hesaplanmaz, kopyalanır.** Root'a eklenen `DurumKritiklik`
+  mevcut draft'larda 0 kaldı → sahibi listede ikonsuz gördü; F8 aktifi gösterdiği için 3
+  görünüyordu. Draft'lar temizlenince ikon geldi. Aynı mekanizma Konu 16'daki
+  "createdAt boş" yanılgısını da açıkladı.
+- **Recreate draft table** mevcut satırları silmez, dönüştürür; yeni alan initial kalır.
+- `_D`'den SE16 ile satır silmek sandbox işi; gerçek sistemde draft admin verisi yetim
+  kalır — Discard ya da `SAP_DRAFT_CLEANUP`.
+- Root view'daki her alan değişikliği: draft tablosu recreate + binding republish +
+  `/IWFND/CACHE_CLEANUP` + tarayıcıda hard refresh.
+- Açık iş: child'da `determination setSira` (max+1) — Konu 19 ısınması.
 
 ---
 
@@ -240,9 +276,11 @@ adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı 
 
 | Tür | Nesne |
 |---|---|
-| Tablo | `ZVDX_NOTLAR`, `ZVDX_NOTLAR_D` (draft) |
-| CDS | `ZVDX_R_NOT` (root), `ZVDX_C_NOT` (projection) |
-| BDEF | `ZVDX_R_NOT` (managed, draft), `ZVDX_C_NOT` (projection) |
+| Tablo | `ZVDX_NOTLAR`, `ZVDX_NOTLAR_D`, `ZVDX_ADIMLAR`, `ZVDX_ADIMLAR_D` |
+| Domain | `ZVDX_DURUM` |
+| CDS | `ZVDX_R_NOT`, `ZVDX_R_ADIM` (root), `ZVDX_C_NOT`, `ZVDX_C_ADIM` (projection), `ZVDX_I_DURUM_VH` |
+| MDE | `ZVDX_C_NOT`, `ZVDX_C_ADIM` |
+| BDEF | `ZVDX_R_NOT` (managed, draft, 2 entity), `ZVDX_C_NOT` (projection) |
 | Sınıf | `ZBP_VDX_R_NOT` (handler), `ZCL_ZVDX_NOT_SRV_DPC_EXT` / `_MPC_EXT`, `ZCL_ZVDX_SAYAC_SRV_*` |
 | Servis | `ZVDX_SAYAC_SRV`, `ZVDX_NOT_SRV` (SEGW); `ZVDX_SD_NOT` → `ZVDX_SB_NOT_O2` (V2), `ZVDX_SB_NOT_O4` (V4) |
 | BSP | `ZVDX_SAYAC_UI`, `ZVDX_NOT_UI`, `ZVDX_NOT_FE`, `ZVDX_NOT_FE4` |
@@ -257,7 +295,6 @@ adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı 
 
 ## Plan
 
-- **Konu 18** — Annotation cilası: value help, criticality (Durum renkli), `@Search`,
-  Metadata Extension, timestamp/saat düzeltmesi.
-- **Konu 19** — ABAP Unit + EML ile RAP testi (zaman kalırsa).
+- **Konu 19** — `setSira` determination (EML ile aynı BO'yu okuma), ABAP Unit + EML ile
+  RAP testi, CDS test double.
 - **Final (23–24 Eyl)** — son abapGit export, README/portföy özeti. CAL erişimi 26 Eyl'de biter.

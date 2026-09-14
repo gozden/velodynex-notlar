@@ -13,6 +13,12 @@ define root view entity ZVDX_R_NOT
         when 'T' then 'Tamamlandı'
         else 'Açık'
       end       as DurumText,
+      
+      case durum
+        when 'T' then 3
+        when 'A' then 2
+        else 0
+      end                   as DurumKritiklik,      
 
       tstmp_to_dats( olusturma,
                      abap_system_timezone( $session.client, 'NULL' ),
