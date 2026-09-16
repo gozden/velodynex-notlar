@@ -259,6 +259,24 @@ adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı 
   `/IWFND/CACHE_CLEANUP` + tarayıcıda hard refresh.
 - Açık iş: child'da `determination setSira` (max+1) — Konu 19 ısınması.
 
+### Konu 19 — Determination + EML, ABAP Unit
+
+- **`setSira`** (child, `on modify { create; }`, ayrı local class `lhc_adimlar`):
+  tetiklenen adımlardan Sira'sı boş olanları oku → `Notlar BY \_Adimlar` ile notun mevcut
+  adımlarını oku → not bazında max → her yeni adıma max+1 (aynı istekte ardışık) →
+  `MODIFY ENTITIES … IN LOCAL MODE UPDATE FIELDS ( Sira )`. COMMIT yok, LUW framework'ün.
+  Sira düzenlenebilir bırakıldı; determination yalnız boşsa doldurur. Doğrulandı: 1, 2;
+  elle 10 → 11.
+- **ABAP Unit** (`ZBP_VDX_R_NOT` Test Classes, `ltc_not`, 4 test, ~2 sn):
+  `create_durum_a_olur` (Konu 13 determination), `tamamla_durum_t_yapar` (Konu 14 action,
+  feature + yetki katmanından geçerek), `bos_baslik_kaydedilmez` (Konu 16 validation,
+  `COMMIT ENTITIES RESPONSE OF … FAILED`), `adimlar_sira_alir` (Konu 17 CBA + Konu 19).
+  `cl_osql_test_environment` dört tabloyu (aktif + draft) double'lar; gerçek tablolara
+  satır yazılmaz. `ROLLBACK ENTITIES` her testte buffer'ı sıfırlar.
+- Test dışarıdan EML: `IN LOCAL MODE` yok → yetki/feature kontrolleri çalışır; test
+  kullanıcısının (BPINST, `Z_VDX_DEV`) yetkisi test sonucunun parçasıdır.
+- Kanıt: beklenen değeri bilerek bozunca kırmızı + Failure Trace.
+
 ---
 
 ## Launchpad tile zinciri (katalog `ZVDX_TC_CALISMA`, sayfa `ZVDX`)
