@@ -55,6 +55,8 @@ etag master LocalLastChangedAt
   delete;
   field ( readonly ) AdimId, NotId, LastChangedAt, LocalLastChangedAt;
 
+  determination setSira on modify { create; }
+
   association _Not { with draft; }
 
   mapping for zvdx_adimlar

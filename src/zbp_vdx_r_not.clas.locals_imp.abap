@@ -196,3 +196,70 @@ CLASS lhc_notlar IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 ENDCLASS.
+
+CLASS lhc_adimlar DEFINITION INHERITING FROM cl_abap_behavior_handler.
+  PRIVATE SECTION.
+    METHODS setSira FOR DETERMINE ON MODIFY
+      IMPORTING keys FOR Adimlar~setSira.
+ENDCLASS.
+
+CLASS lhc_adimlar IMPLEMENTATION.
+
+  METHOD setSira.
+    " 1) Tetiklenen adımlardan Sira'sı boş olanlar
+    READ ENTITIES OF zvdx_r_not IN LOCAL MODE
+      ENTITY Adimlar
+        FIELDS ( Sira NotId ) WITH CORRESPONDING #( keys )
+      RESULT DATA(yeni_adimlar).
+
+    DELETE yeni_adimlar WHERE Sira IS NOT INITIAL.
+    CHECK yeni_adimlar IS NOT INITIAL.
+
+    " 2) İlgili notların mevcut tüm adımları (parent → child okuma)
+    READ ENTITIES OF zvdx_r_not IN LOCAL MODE
+      ENTITY Notlar BY \_Adimlar
+        FIELDS ( Sira NotId )
+        WITH VALUE #( FOR a IN yeni_adimlar
+                      ( %tky-NotId     = a-NotId
+                        %tky-%is_draft = a-%is_draft ) )
+      RESULT DATA(mevcut_adimlar).
+
+    " 3) Not bazında max Sira
+    TYPES: BEGIN OF ty_max,
+             notid TYPE sysuuid_c32,
+             sira  TYPE int2,
+           END OF ty_max.
+    DATA maxlar TYPE HASHED TABLE OF ty_max WITH UNIQUE KEY notid.
+
+    LOOP AT mevcut_adimlar INTO DATA(m).
+      READ TABLE maxlar ASSIGNING FIELD-SYMBOL(<mx>) WITH TABLE KEY notid = m-NotId.
+      IF sy-subrc <> 0.
+        INSERT VALUE #( notid = m-NotId sira = m-Sira ) INTO TABLE maxlar ASSIGNING <mx>.
+      ELSEIF m-Sira > <mx>-sira.
+        <mx>-sira = m-Sira.
+      ENDIF.
+    ENDLOOP.
+
+    " 4) Her yeni adıma max+1, aynı notta ardışık
+    DATA guncelle TYPE TABLE FOR UPDATE zvdx_r_not\\Adimlar.
+
+    LOOP AT yeni_adimlar INTO DATA(y).
+      READ TABLE maxlar ASSIGNING <mx> WITH TABLE KEY notid = y-NotId.
+      IF sy-subrc <> 0.
+        INSERT VALUE #( notid = y-NotId sira = 0 ) INTO TABLE maxlar ASSIGNING <mx>.
+      ENDIF.
+      <mx>-sira += 1.
+      APPEND VALUE #( %tky = y-%tky
+                      Sira = <mx>-sira ) TO guncelle.
+    ENDLOOP.
+
+    " 5) Yaz — COMMIT yok, LUW framework'ün
+    MODIFY ENTITIES OF zvdx_r_not IN LOCAL MODE
+      ENTITY Adimlar
+        UPDATE FIELDS ( Sira ) WITH guncelle
+      REPORTED DATA(guncelle_reported).
+
+    reported = CORRESPONDING #( DEEP guncelle_reported ).
+  ENDMETHOD.
+
+ENDCLASS.
