@@ -1,0 +1,119 @@
+DATE                                              20260917                                          101251
+RELEASE                                           816
+LOADED_AGRS                                       Z_VDX_DEV
+AGR_DEFINE                                        100Z_VDX_DEV                                                   BPINST      20260912111804000000000000000BPINST      20260912111841000000000000000
+AGR_1250                                          100Z_VDX_DEV                     000001PLOG      __________00    G  O000000
+AGR_1250                                          100Z_VDX_DEV                     000002S_SECPOL  __________00    G  O000000
+AGR_1250                                          100Z_VDX_DEV                     000004S_SERVICE __________01    S  O000000
+AGR_1250                                          100Z_VDX_DEV                     000015ZVDX_NOT  __________00    U  O000000
+AGR_1250                                          100Z_VDX_DEV                     000005S_START   __________00    S  O000000
+AGR_1250                                          100Z_VDX_DEV                     000006S_TCODE   __________00    S  O000000
+AGR_1250                                          100Z_VDX_DEV                     000007S_TCODE   __________01    U  O000000
+AGR_1250                                          100Z_VDX_DEV                     000008S_USER_AGR__________00    G  O000000
+AGR_1250                                          100Z_VDX_DEV                     000009S_USER_ATT__________00    G  O000000
+AGR_1250                                          100Z_VDX_DEV                     000010S_USER_AUT__________00    G  O000000
+AGR_1250                                          100Z_VDX_DEV                     000011S_USER_GRP__________00    G  O000000
+AGR_1250                                          100Z_VDX_DEV                     000012S_USER_PRO__________00    G  O000000
+AGR_1250                                          100Z_VDX_DEV                     000013S_USER_SAS__________00    G  O000000
+AGR_1250                                          100Z_VDX_DEV                     000014S_USER_SYS__________00    G  O000000
+AGR_1250                                          100Z_VDX_DEV                     000003S_SERVICE __________00    U  O000000
+AGR_1251                                          100Z_VDX_DEV                     000001PLOG      __________00    INFOTYP   1001                                                                            S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000004PLOG      __________00    PLVAR     $PLVAR                                                                          S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000005PLOG      __________00    PPFCODE   DEL                                                                             S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000006PLOG      __________00    PPFCODE   DISP                                                                            S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000008S_SECPOL  __________00    ACTVT     22                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000002PLOG      __________00    ISTAT     *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000003PLOG      __________00    OTYPE     *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000007PLOG      __________00    SUBTYP    *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000009S_SECPOL  __________00    POLICYNAME*                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000010S_SERVICE __________00    SRV_NAME  3719F974A6F9607CA6D8FB294C90FC                                                  U  O000000
+AGR_1251                                          100Z_VDX_DEV                     000011S_SERVICE __________00    SRV_NAME  4CC78858CF7211088AB530E1E00F95                                                  U  O000000
+AGR_1251                                          100Z_VDX_DEV                     000012S_SERVICE __________00    SRV_NAME  B0F9FC60AE7930273F977C777EAD89                                                  U  O000000
+AGR_1251                                          100Z_VDX_DEV                     000013S_SERVICE __________00    SRV_NAME  ECC0889BD1695CB5E7F7DCA5B86817                                                  U  O000000
+AGR_1251                                          100Z_VDX_DEV                     000014S_SERVICE __________00    SRV_TYPE  HT                                                                              U  O000000
+AGR_1251                                          100Z_VDX_DEV                     000015S_SERVICE __________01    SRV_NAME  74BDD63AEEA31D2621AD12BB064185                                                  S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000016S_SERVICE __________01    SRV_NAME  9745A2980D2BAE1AA377AB21EB2583                                                  S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000017S_SERVICE __________01    SRV_NAME  EBAE565CD184565BFEBDE8D7ADCFA3                                                  S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000018S_SERVICE __________01    SRV_TYPE  HT                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000019S_START   __________00    AUTHOBJNAMZVDX_SB_NOT_O4                                                                  S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000020S_START   __________00    AUTHOBJTYPG4BA                                                                            S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000021S_START   __________00    AUTHPGMID R3TR                                                                            S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000022S_TCODE   __________00    TCD       SU01                                                                            S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000023S_TCODE   __________01    TCD       SU53                                                                            U  O000000
+AGR_1251                                          100Z_VDX_DEV                     000024S_USER_AGR__________00    ACTVT     03                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000025S_USER_AGR__________00    ACTVT     22                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000026S_USER_AGR__________00    ACT_GROUP *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000027S_USER_ATT__________00    ACTVT     01                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000028S_USER_ATT__________00    ACTVT     06                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000029S_USER_ATT__________00    CLASS     *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000030S_USER_ATT__________00    USATTRID  *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000031S_USER_ATT__________00    USATTRTYPE*                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000032S_USER_AUT__________00    ACTVT     03                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000033S_USER_AUT__________00    AUTH      *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000034S_USER_AUT__________00    OBJECT    *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000035S_USER_GRP__________00    ACTVT     01                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000036S_USER_GRP__________00    ACTVT     02                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000037S_USER_GRP__________00    ACTVT     03                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000038S_USER_GRP__________00    ACTVT     05                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000039S_USER_GRP__________00    ACTVT     06                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000040S_USER_GRP__________00    ACTVT     78                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000041S_USER_GRP__________00    CLASS     *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000042S_USER_PRO__________00    ACTVT     03                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000043S_USER_PRO__________00    ACTVT     22                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000044S_USER_PRO__________00    PROFILE   *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000045S_USER_SAS__________00    ACTVT     01                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000046S_USER_SAS__________00    ACTVT     06                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000047S_USER_SAS__________00    ACTVT     22                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000048S_USER_SAS__________00    ACT_GROUP *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000049S_USER_SAS__________00    CLASS     *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000050S_USER_SAS__________00    PROFILE   *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000051S_USER_SAS__________00    SUBSYSTEM *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000052S_USER_SYS__________00    ACTVT     78                                                                              S  O000000
+AGR_1251                                          100Z_VDX_DEV                     000053S_USER_SYS__________00    SUBSYSTEM *                                                                               G  O000000
+AGR_1251                                          100Z_VDX_DEV                     000056ZVDX_NOT  __________00    ACTVT     06                                                                              U  O000000
+AGR_1251                                          100Z_VDX_DEV                     000054ZVDX_NOT  __________00    ACTVT     01                                                                              U  O000000
+AGR_1251                                          100Z_VDX_DEV                     000055ZVDX_NOT  __________00    ACTVT     02                                                                              U  O000000
+AGR_1252                                          100Z_VDX_DEV                     000001$PLVAR                                  *
+AGR_TEXTS                                         100Z_VDX_DEV                     E00000
+AGR_FLAGS                                         100Z_VDX_DEV                     SAP_SOURCEBPINST      20260912111804BPINST      20260912111804ZVDX_CALISMA_ROLU
+AGR_FLAGS                                         100Z_VDX_DEV                     DEVCLASS  BPINST      20260912111804BPINST      20260912111804
+AGR_FLAGS                                         100Z_VDX_DEV                     MASTER_LANBPINST      20260912111804BPINST      20260912111804E
+AGR_FLAGS                                         100Z_VDX_DEV                     RESP_USER BPINST      20260912111804BPINST      20260912111804
+AGR_FLAGS                                         100Z_VDX_DEV                     COLL_AGR  BPINST      20260912111804BPINST      20260912111804
+AGR_BUFFI                                         100Z_VDX_DEV                     00000002WX-SAP-UI2-CATALOGPAGE:ZVDX_TC_CALISMA?AUTH_DEFAULTS=X&DEST_FES=
+AGR_BUFFI                                         100Z_VDX_DEV                     00000004WOTSERVICE             SU01                          TR
+AGR_BUFFI                                         100Z_VDX_DEV                     00000005Wsap-ui2-group:ZVDX_GRP_CALISMA
+AGR_BUFFI                                         100Z_VDX_DEV                     00000006WZVDX_SP_CALISMA
+AGR_BUFFI                                         100Z_VDX_DEV                     00000007WOTSERVICE             9745A2980D2BAE1AA377AB21EB2583HT
+AGR_BUFFI                                         100Z_VDX_DEV                     00000008WOTSERVICE             74BDD63AEEA31D2621AD12BB064185HT
+AGR_BUFFI                                         100Z_VDX_DEV                     00000009WOTSERVICE             EBAE565CD184565BFEBDE8D7ADCFA3HT
+AGR_BUFFI                                         100Z_VDX_DEV                     00000010WOTSERVICE             B0F9FC60AE7930273F977C777EAD89HT
+AGR_HIER                                          100Z_VDX_DEV                     0000000200000001X00000070OTCAT_PROVIDER                                    01                                X                                         0000000000
+AGR_HIER                                          100Z_VDX_DEV                     0000000400000002 00000010OTSERVICE                                         02                                X                                         0000000000
+AGR_HIER                                          100Z_VDX_DEV                     0000000500000001 00000060OTGROUP_PROVIDER                                  01                                X                                         0000000000
+AGR_HIER                                          100Z_VDX_DEV                     0000000600000001 00000050OTSPACE_PROVIDER                                  01                                X                                         0000000000
+AGR_HIER                                          100Z_VDX_DEV                     0000000700000001 00000040OTSERVICE                                         01                                X                                         0000000000
+AGR_HIER                                          100Z_VDX_DEV                     0000000800000001 00000030OTSERVICE                                         01                                X                                         0000000000
+AGR_HIER                                          100Z_VDX_DEV                     0000000900000001 00000020OTSERVICE                                         01                                X                                         0000000000
+AGR_HIER                                          100Z_VDX_DEV                     0000001000000001 00000010OTSERVICE                                         01                                X                                         0000000000
+AGR_HIERT                                         100Z_VDX_DEV                     E00000002Velodynex Çal##ma Katalo#u
+AGR_HIERT                                         100Z_VDX_DEV                     E00000004User Maintenance
+AGR_HIERT                                         100Z_VDX_DEV                     E00000005Velodynex
+AGR_HIERT                                         100Z_VDX_DEV                     E00000006Velodynex
+AGR_HIERT                                         100Z_VDX_DEV                     E00000007R3TR IWSV ZVDX_SAYAC_SRV                     0001
+AGR_HIERT                                         100Z_VDX_DEV                     E00000008R3TR IWSV ZVDX_SB_NOT_O2                     0001
+AGR_HIERT                                         100Z_VDX_DEV                     E00000009R3TR IWSG ZVDX_SB_NOT_O2_0001
+AGR_HIERT                                         100Z_VDX_DEV                     E00000010R3TR G4BA ZVDX_SB_NOT_O4
+AGR_APPL_VARS                                     100Z_VDX_DEV                     HT561A330A61A4EA6093E12092ED977D
+AGR_APPL_VARS                                     100Z_VDX_DEV                     HT74BDD63AEEA31D2621AD12BB064185X
+AGR_APPL_VARS                                     100Z_VDX_DEV                     HT79070FC5E5CC0059A21B5B3E7C7D6F
+AGR_APPL_VARS                                     100Z_VDX_DEV                     HT89FB1724C8B6E536E422A31B47D250
+AGR_APPL_VARS                                     100Z_VDX_DEV                     HT90C942E40E2F7481770B53A45EB6EA
+AGR_APPL_VARS                                     100Z_VDX_DEV                     HT9745A2980D2BAE1AA377AB21EB2583X
+AGR_APPL_VARS                                     100Z_VDX_DEV                     HTB0F9FC60AE7930273F977C777EAD89X
+AGR_APPL_VARS                                     100Z_VDX_DEV                     HTEBAE565CD184565BFEBDE8D7ADCFA3X
+AGR_APPL_VARS                                     100Z_VDX_DEV                     TRSU01                          X
+AGR_TIME                                          100Z_VDX_DEV                     MENU      BPINST      20260912111804000000000000000BPINST      20260912111804000000000000000
+AGR_TIME                                          100Z_VDX_DEV                     VARIANTS  BPINST      20260912111805000000000000000BPINST      20260912111805000000000000000
+AGR_TIME                                          100Z_VDX_DEV                     PROFILE   BPINST      20260912111805000000000000000BPINST      20260912111840000000000000000
+AGR_LSD                                           100Z_VDX_DEV                                                   E

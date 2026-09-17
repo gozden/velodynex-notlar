@@ -1,0 +1,501 @@
+DATE                                              20260917                                          101210
+RELEASE                                           816
+LOADED_AGRS                                       Z_FLP_USER
+AGR_DEFINE                                        100Z_FLP_USER                                                  BPINST      20201030162045000000000000000BPINST      20260909063025000000000000000
+AGR_TCODES                                        100Z_FLP_USER                    TRF0000                                            X 00000
+AGR_1250                                          100Z_FLP_USER                    000002SDDLVIEW  T-SH11009300    SXIO000000
+AGR_1250                                          100Z_FLP_USER                    000001/UI2/CHIP T-SH11009300    S  O000000
+AGR_1250                                          100Z_FLP_USER                    000003S_DYP_MENUT-SH11009300    G  O000000
+AGR_1250                                          100Z_FLP_USER                    000004S_FLP_AS  T-SH11009300    G  O000000
+AGR_1250                                          100Z_FLP_USER                    000005S_GUI     T-SH11009300    G  O000000
+AGR_1250                                          100Z_FLP_USER                    000006S_GW_MON  T-SH11009300    G  O000000
+AGR_1250                                          100Z_FLP_USER                    000007S_PROGNAM T-SH11009300    S  O000000
+AGR_1250                                          100Z_FLP_USER                    000009S_SCOPE   T-SH11009300    G  O000000
+AGR_1250                                          100Z_FLP_USER                    000008S_RS_ZEN  T-SH11009300    G  O000000
+AGR_1250                                          100Z_FLP_USER                    000010S_SERVICE T-SH11009300    S  O000000
+AGR_1250                                          100Z_FLP_USER                    000011S_START   T-SH11009300    S  O000000
+AGR_1250                                          100Z_FLP_USER                    000013S_WEBGUI  T-SH11009300    G  O000000
+AGR_1250                                          100Z_FLP_USER                    000012S_TCODE   T-SH11009300    S  O000000
+AGR_1251                                          100Z_FLP_USER                    000051S_TCODE   T-SH11009300    TCD       F0000                                                                           S  O000000
+AGR_1251                                          100Z_FLP_USER                    000050S_TCODE   T-SH11009300    TCD       /UI2/FLP                                                                        S  O000000
+AGR_1251                                          100Z_FLP_USER                    000049S_START   T-SH11009300    AUTHPGMID R3TR                                                                            S  O000000
+AGR_1251                                          100Z_FLP_USER                    000045S_START   T-SH11009300    AUTHOBJNAM/IWNGW/NOTIFICATION                                                             S  O000000
+AGR_1251                                          100Z_FLP_USER                    000046S_START   T-SH11009300    AUTHOBJNAM/UI2/INSIGHTS_SRV                                                               S  O000000
+AGR_1251                                          100Z_FLP_USER                    000047S_START   T-SH11009300    AUTHOBJNAMS_APS_SB_DOC_HLP                                                                S  O000000
+AGR_1251                                          100Z_FLP_USER                    000048S_START   T-SH11009300    AUTHOBJTYPG4BA                                                                            S  O000000
+AGR_1251                                          100Z_FLP_USER                    000044S_SERVICE T-SH11009300    SRV_TYPE  HT                                                                              S  O000000
+AGR_1251                                          100Z_FLP_USER                    000025S_SERVICE T-SH11009300    SRV_NAME  0BDF2F06BFDAE0E30C5A6A62643514                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000026S_SERVICE T-SH11009300    SRV_NAME  26D2A479392B425BEBD23C89693943                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000027S_SERVICE T-SH11009300    SRV_NAME  3306B7EF8ECBDE0252017D43DE0BE6                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000028S_SERVICE T-SH11009300    SRV_NAME  3719F974A6F9607CA6D8FB294C90FC                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000029S_SERVICE T-SH11009300    SRV_NAME  3A235564F95E8B8844ED4D6EF39738                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000030S_SERVICE T-SH11009300    SRV_NAME  454C85350D6DE8674980D32BC99546                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000031S_SERVICE T-SH11009300    SRV_NAME  4CC78858CF7211088AB530E1E00F95                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000032S_SERVICE T-SH11009300    SRV_NAME  6BE6DF358172DA9B835547807A91A7                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000033S_SERVICE T-SH11009300    SRV_NAME  77183FBF21C502236512890055D9F2                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000034S_SERVICE T-SH11009300    SRV_NAME  86652B54435A2A7E8A2BE1D7ABBE1B                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000035S_SERVICE T-SH11009300    SRV_NAME  88B40BBEFFF15088D09DCDF4A3788C                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000036S_SERVICE T-SH11009300    SRV_NAME  96B3D0A2052A2CE1F1F27C2AEE62E5                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000037S_SERVICE T-SH11009300    SRV_NAME  A15F5E180FD9799CFEFC51020A28B1                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000038S_SERVICE T-SH11009300    SRV_NAME  AB088B10113EAC3BC6349F4E933053                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000039S_SERVICE T-SH11009300    SRV_NAME  B2979B83FC4EC22E83A53F318D3F02                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000040S_SERVICE T-SH11009300    SRV_NAME  DE0699A8407F658831D946F2C25B64                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000041S_SERVICE T-SH11009300    SRV_NAME  E50E80F6434D75CA9AE9D099FA6CA8                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000042S_SERVICE T-SH11009300    SRV_NAME  EF608938F3EB18256CE851763C2952                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000043S_SERVICE T-SH11009300    SRV_NAME  FEA3E50D4B2A915D10565F03B786AC                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000004SDDLVIEW  T-SH11009300    ACTVT     03                                                                              SX O000000
+AGR_1251                                          100Z_FLP_USER                    000005SDDLVIEW  T-SH11009300    DDLNAME                                                                                   SX O000000
+AGR_1251                                          100Z_FLP_USER                    000006SDDLVIEW  T-SH11009300    DDLSRCNAME                                                                                SX O000000
+AGR_1251                                          100Z_FLP_USER                    000017S_PROGNAM T-SH11009300    P_ACTION  BTCSUBMIT                                                                       S  O000000
+AGR_1251                                          100Z_FLP_USER                    000018S_PROGNAM T-SH11009300    P_PROGNAM /SSB/ALERT_NOTIFICATION_REPORT                                                  S  O000000
+AGR_1251                                          100Z_FLP_USER                    000012S_GUI     T-SH11009300    ACTVT     *                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000001/UI2/CHIP T-SH11009300    /UI2/CHIP X-SAP-UI2*                                                                      S  O000000
+AGR_1251                                          100Z_FLP_USER                    000002/UI2/CHIP T-SH11009300    ACTVT     03                                                                              S  O000000
+AGR_1251                                          100Z_FLP_USER                    000003/UI2/CHIP T-SH11009300    ACTVT     16                                                                              S  O000000
+AGR_1251                                          100Z_FLP_USER                    000007S_DYP_MENUT-SH11009300    ACTVT     03                                                                              S  O000000
+AGR_1251                                          100Z_FLP_USER                    000024S_SCOPE   T-SH11009300    OA2_SCOPE /IWFND/SG_MED_CATALOG_0002                                                      S  O000000
+AGR_1251                                          100Z_FLP_USER                    000052S_WEBGUI  T-SH11009300    ACTVT     *                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000009S_FLP_AS  T-SH11009300    ACTVT     *                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000013S_GW_MON  T-SH11009300    ACTVT     *                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000019S_RS_ZEN  T-SH11009300    ACTVT     *                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000008S_DYP_MENUT-SH11009300    MENU_GROUP*                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000010S_FLP_AS  T-SH11009300    SUI_ADEDS *                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000011S_FLP_AS  T-SH11009300    SUI_ADEUS *                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000014S_GW_MON  T-SH11009300    GW_LOGLVL *                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000015S_GW_MON  T-SH11009300    GW_MONAREA*                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000016S_GW_MON  T-SH11009300    GW_USERCAT*                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000020S_RS_ZEN  T-SH11009300    RSAO_OBJID*                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000021S_RS_ZEN  T-SH11009300    RSAO_OBJTY*                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000022S_RS_ZEN  T-SH11009300    RSZOWNER  *                                                                               G  O000000
+AGR_1251                                          100Z_FLP_USER                    000023S_SCOPE   T-SH11009300    OA2_CLIENT*                                                                               G  O000000
+AGR_TEXTS                                         100Z_FLP_USER                    E00000End-User Role of SAP Fiori Launchpad
+AGR_TEXTS                                         100Z_FLP_USER                    E00004
+AGR_TEXTS                                         100Z_FLP_USER                    E00002Created automatically with task list:
+AGR_TEXTS                                         100Z_FLP_USER                    E00001Role copied from SAP_FLP_USER
+AGR_TEXTS                                         100Z_FLP_USER                    E00003SAP Fiori - Initial Setup for Fiori Applications S/4
+AGR_FLAGS                                         100Z_FLP_USER                    FORCE_MIX BPINST      20201102074530BPINST      20250321101022
+AGR_FLAGS                                         100Z_FLP_USER                    COLL_AGR  BPINST      20201030162045BPINST      20201030162045
+AGR_FLAGS                                         100Z_FLP_USER                    MASTER_LANBPINST      20201030162045BPINST      20201030162045E
+AGR_FLAGS                                         100Z_FLP_USER                    RESP_USER BPINST      20201030162045BPINST      20201030162045BPINST
+AGR_BUFFI                                         100Z_FLP_USER                    00000005WOTSERVICE             DE0699A8407F658831D946F2C25B64HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000006WOTSERVICE             A15F5E180FD9799CFEFC51020A28B1HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000008WOTSERVICE             3719F974A6F9607CA6D8FB294C90FCHT
+AGR_BUFFI                                         100Z_FLP_USER                    00000009WOTSERVICE             454C85350D6DE8674980D32BC99546HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000010WOTSERVICE             86652B54435A2A7E8A2BE1D7ABBE1BHT
+AGR_BUFFI                                         100Z_FLP_USER                    00000012WOTSERVICE             /UI2/FLP                      TR
+AGR_BUFFI                                         100Z_FLP_USER                    00000014WOTSERVICE             B2979B83FC4EC22E83A53F318D3F02HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000015WOTSERVICE             77183FBF21C502236512890055D9F2HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000016WOTSERVICE             26D2A479392B425BEBD23C89693943HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000017WOTSERVICE             3A235564F95E8B8844ED4D6EF39738HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000018WOTSERVICE             AB088B10113EAC3BC6349F4E933053HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000019WOTSERVICE             FEA3E50D4B2A915D10565F03B786ACHT
+AGR_BUFFI                                         100Z_FLP_USER                    00000020WOTSERVICE             EF608938F3EB18256CE851763C2952HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000021WOTSERVICE             0BDF2F06BFDAE0E30C5A6A62643514HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000022WOTSERVICE             88B40BBEFFF15088D09DCDF4A3788CHT
+AGR_BUFFI                                         100Z_FLP_USER                    00000023WOTSERVICE             96B3D0A2052A2CE1F1F27C2AEE62E5HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000024WOTSERVICE             DE0699A8407F658831D946F2C25B64HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000025WOTSERVICE             E50E80F6434D75CA9AE9D099FA6CA8HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000026WOTSERVICE             A15F5E180FD9799CFEFC51020A28B1HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000027WOTSERVICE             4CC78858CF7211088AB530E1E00F95HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000028WOTSERVICE             3306B7EF8ECBDE0252017D43DE0BE6HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000029WOTSERVICE             86652B54435A2A7E8A2BE1D7ABBE1BHT
+AGR_BUFFI                                         100Z_FLP_USER                    00000030WOTSERVICE             6BE6DF358172DA9B835547807A91A7HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000031WOTSERVICE             0CE5F5CC13EB983C06D8F76C256D48HT
+AGR_BUFFI                                         100Z_FLP_USER                    00000032WOTSERVICE             2319EC3C570EAA2415D4805FA1A36AHT
+AGR_BUFFI                                         100Z_FLP_USER                    00000033WOTSERVICE             807C13F30743361805FB233103D61DHT
+AGR_BUFFI                                         100Z_FLP_USER                    00000035WX-SAP-UI2-CATALOGPAGE:/UI2/CONFIG_NAVIGATION_MODE?ROLE_ORIGIN=S4HCLNT100&DEST_FES=
+AGR_HIER                                          100Z_FLP_USER                    0000000500000001 00000060OTSERVICE                                         01                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000000600000001 00000050OTSERVICE                                         01                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000000800000001 00000080OTSERVICE                                         01                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000000900000001 00000070OTSERVICE                                         01                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000001000000001 00000040OTSERVICE                                         01                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000001100000001 00000020TRF0000                                           01                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000001200000001 00000030OTSERVICE                                         01                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000001300000001X00000090                                                  01
+AGR_HIER                                          100Z_FLP_USER                    0000001400000013 00000200OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000001500000013 00000190OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000001600000013 00000180OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000001700000013 00000170OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000001800000013 00000160OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000001900000013 00000150OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000002000000013 00000140OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000002100000013 00000130OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000002200000013 00000120OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000002300000013 00000110OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000002400000013 00000100OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000002500000013 00000090OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000002600000013 00000080OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000002700000013 00000070OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000002800000013 00000060OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000002900000013 00000050OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000003000000013 00000040OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000003100000013 00000030OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000003200000013 00000020OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000003300000013 00000010OTSERVICE                                         02                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000003400000001 00000010TRF0000                                           01                                                                          0000000000
+AGR_HIER                                          100Z_FLP_USER                    0000003500000001X00000100OTCAT_PROVIDER                                    01                                                                          0000000000
+AGR_HIERT                                         100Z_FLP_USER                    100000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    100000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    100000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    100000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    100000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    100000011SAP Fiori ######UI5 ###
+AGR_HIERT                                         100Z_FLP_USER                    100000012SAP Fiori #####
+AGR_HIERT                                         100Z_FLP_USER                    100000034SAP Fiori ######UI5 ###
+AGR_HIERT                                         100Z_FLP_USER                    200000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    200000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    200000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    200000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    200000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    200000011SAP Fiori Launchpad (### UI5)
+AGR_HIERT                                         100Z_FLP_USER                    200000012SAP Fiori Launchpad
+AGR_HIERT                                         100Z_FLP_USER                    200000034SAP Fiori Launchpad (### UI5)
+AGR_HIERT                                         100Z_FLP_USER                    300000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    300000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    300000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    300000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    300000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    300000011SAP Fiori Launchpad(UI5 #)
+AGR_HIERT                                         100Z_FLP_USER                    300000012SAP Fiori Launchpad
+AGR_HIERT                                         100Z_FLP_USER                    300000034SAP Fiori Launchpad(UI5 #)
+AGR_HIERT                                         100Z_FLP_USER                    400000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    400000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    400000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    400000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    400000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    400000011SAP Fiori Launchpad (aplica#ie UI5)
+AGR_HIERT                                         100Z_FLP_USER                    400000012Launchpad SAP Fiori
+AGR_HIERT                                         100Z_FLP_USER                    400000034SAP Fiori Launchpad (aplica#ie UI5)
+AGR_HIERT                                         100Z_FLP_USER                    500000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    500000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    500000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    500000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    500000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    500000011SAP Fiori Launchpad (aplikacija SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    500000012Launchpad SAP Fiori
+AGR_HIERT                                         100Z_FLP_USER                    500000034SAP Fiori Launchpad (Apl. SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    600000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    600000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    600000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    600000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    600000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    600000011SAP Fiori Launchpad (UI5 aplikacija)
+AGR_HIERT                                         100Z_FLP_USER                    600000012SAP Fiori Launchpad
+AGR_HIERT                                         100Z_FLP_USER                    600000034SAP Fiori Launchpad (UI5 aplikacija)
+AGR_HIERT                                         100Z_FLP_USER                    700000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    700000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    700000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    700000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    700000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    700000011SAP Fiori Launchpad (Aplikasi UI5)
+AGR_HIERT                                         100Z_FLP_USER                    700000012SAP Fiori Launchpad
+AGR_HIERT                                         100Z_FLP_USER                    700000034SAP Fiori Launchpad (Aplikasi UI5)
+AGR_HIERT                                         100Z_FLP_USER                    800000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    800000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    800000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    800000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    800000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    800000011###### ####### SAP Fiori (########## UI5)
+AGR_HIERT                                         100Z_FLP_USER                    800000012###### ####### SAP Fiori
+AGR_HIERT                                         100Z_FLP_USER                    800000034###### ####### SAP Fiori (####.UI5)
+AGR_HIERT                                         100Z_FLP_USER                    900000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    900000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    900000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    900000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    900000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    900000011SAP Fiori käivituspaan (UI5 rakend.)
+AGR_HIERT                                         100Z_FLP_USER                    900000012SAP Fiori käivituspaan
+AGR_HIERT                                         100Z_FLP_USER                    900000034SAP Fiori käivituspaan (UI5 rakend.)
+AGR_HIERT                                         100Z_FLP_USER                    A00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    A00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    A00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    A00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    A00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    A00000011#### ##### SAP Fiori (##### UI5)
+AGR_HIERT                                         100Z_FLP_USER                    A00000012#### ##### SAP Fiori
+AGR_HIERT                                         100Z_FLP_USER                    A00000034#### ##### SAP Fiori (##### UI5)
+AGR_HIERT                                         100Z_FLP_USER                    B00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    B00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    B00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    B00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    B00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    B00000011### ##### ## SAP Fiori (##### UI5)
+AGR_HIERT                                         100Z_FLP_USER                    B00000012### ##### SAP Fiori
+AGR_HIERT                                         100Z_FLP_USER                    B00000034SAP Fiori Launchpad (##### UI5)
+AGR_HIERT                                         100Z_FLP_USER                    C00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    C00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    C00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    C00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    C00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    C00000011Launchpad SAP Fiori(aplikace SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    C00000012Launchpad SAP Fiori
+AGR_HIERT                                         100Z_FLP_USER                    C00000034Launchpad SAP Fiori(aplikace SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    D00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    D00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    D00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    D00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    D00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    D00000011SAP Fiori Launchpad (SAPUI5-App)
+AGR_HIERT                                         100Z_FLP_USER                    D00000012SAP Fiori Launchpad
+AGR_HIERT                                         100Z_FLP_USER                    D00000034SAP Fiori Launchpad (SAPUI5-App)
+AGR_HIERT                                         100Z_FLP_USER                    E00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000011SAP Fiori Launchpad (UI5 App)
+AGR_HIERT                                         100Z_FLP_USER                    E00000012SAP Fiori Launchpad
+AGR_HIERT                                         100Z_FLP_USER                    E00000013Foundation Auth. for User
+AGR_HIERT                                         100Z_FLP_USER                    E00000014R3TR IWSV /UI2/EASY_ACCESS_MENU              0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000015R3TR IWSG ZEASY_ACCESS_MENU_0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000016R3TR IWSV /UI2/USER_MENU                     0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000017R3TR IWSG ZUSER_MENU_0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000018R3TR IWSV /SSB/SMART_BUSINESS_RUNTIME_SRV    0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000019R3TR IWSG ZSMART_BUSINESS_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000020R3TR IWSV ESH_SEARCH_SRV                     0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000021R3TR IWSG ZESH_SEARCH_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000022R3TR IWSV RSAO_ODATA_SRV                     0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000023R3TR IWSG ZRSAO_ODATA_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000024R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000025R3TR IWSG ZPAGE_BUILDER_PERS_0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000026R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000027R3TR IWSG ZINTEROP_0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000028R3TR IWSG /IWFND/SG_MED_CATALOG_0002
+AGR_HIERT                                         100Z_FLP_USER                    E00000029R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000030R3TR IWSG ZSUI_FLP_APP_SUP_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    E00000031R3TR G4BA /IWNGW/NOTIFICATION
+AGR_HIERT                                         100Z_FLP_USER                    E00000032R3TR G4BA /UI2/INSIGHTS_SRV
+AGR_HIERT                                         100Z_FLP_USER                    E00000033R3TR G4BA S_APS_SB_DOC_HLP
+AGR_HIERT                                         100Z_FLP_USER                    E00000034SAP Fiori Launchpad (UI5 App)
+AGR_HIERT                                         100Z_FLP_USER                    E00000035Catalog CONFIG_NAVIGATION_MODE
+AGR_HIERT                                         100Z_FLP_USER                    F00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    F00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    F00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    F00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    F00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    F00000011Barre lanc. SAP Fiori (appl. SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    F00000012Barre de lancement SAP Fiori
+AGR_HIERT                                         100Z_FLP_USER                    F00000034Barre lanc. SAP Fiori (appl. SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    G00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    G00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    G00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    G00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    G00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    G00000011SAP Fiori Launchpad (UI5 App)
+AGR_HIERT                                         100Z_FLP_USER                    G00000012##.######### SAP Fiori
+AGR_HIERT                                         100Z_FLP_USER                    G00000034SAP Fiori Launchpad (UI5 App)
+AGR_HIERT                                         100Z_FLP_USER                    H00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    H00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    H00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    H00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    H00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    H00000011SAP Fiori-indítópult (SAPUI5-alk.)
+AGR_HIERT                                         100Z_FLP_USER                    H00000012SAP Fiori-indítópult
+AGR_HIERT                                         100Z_FLP_USER                    H00000034SAP Fiori-indítópult (SAPUI5-alk.)
+AGR_HIERT                                         100Z_FLP_USER                    I00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    I00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    I00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    I00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    I00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    I00000011Launchpad di SAP Fiori (app SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    I00000012Launchpad di SAP Fiori
+AGR_HIERT                                         100Z_FLP_USER                    I00000034Launchpad di SAP Fiori (app SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    J00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    J00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    J00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    J00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    J00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    J00000011SAP Fiori ####### (UI5 ###)
+AGR_HIERT                                         100Z_FLP_USER                    J00000012SAP Fiori #######
+AGR_HIERT                                         100Z_FLP_USER                    J00000034SAP Fiori ####### (UI5 App)
+AGR_HIERT                                         100Z_FLP_USER                    K00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    K00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    K00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    K00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    K00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    K00000011SAP Fiori-launchpad (SAPUI5-app)
+AGR_HIERT                                         100Z_FLP_USER                    K00000012SAP Fiori-launchpad
+AGR_HIERT                                         100Z_FLP_USER                    K00000034SAP Fiori-launchpad (SAPUI5-app)
+AGR_HIERT                                         100Z_FLP_USER                    L00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    L00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    L00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    L00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    L00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    L00000011Okno wywo#a# SAP Fiori (apl. SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    L00000012SAP Fiori Launchpad
+AGR_HIERT                                         100Z_FLP_USER                    L00000034Okno wywo#a# SAP Fiori (apl. SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    M00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS
+AGR_HIERT                                         100Z_FLP_USER                    M00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    M00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    M00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    M00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    M00000011SAP Fiori ####UI5 #####
+AGR_HIERT                                         100Z_FLP_USER                    M00000012SAP Fiori ###
+AGR_HIERT                                         100Z_FLP_USER                    M00000034SAP Fiori ####UI5 #####
+AGR_HIERT                                         100Z_FLP_USER                    N00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    N00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    N00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    N00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    N00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    N00000011Launchpad voor SAP Fiori (SAPUI5-app)
+AGR_HIERT                                         100Z_FLP_USER                    N00000012SAP Fiori-launchpad
+AGR_HIERT                                         100Z_FLP_USER                    N00000034Launchpad v. SAP Fiori (SAPUI5-app)
+AGR_HIERT                                         100Z_FLP_USER                    O00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    O00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    O00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    O00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    O00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    O00000011SAP Fiori-startfelt (SAPUI5-app)
+AGR_HIERT                                         100Z_FLP_USER                    O00000012SAP Fiori-startfelt
+AGR_HIERT                                         100Z_FLP_USER                    O00000034SAP Fiori-startfelt (SAPUI5-app)
+AGR_HIERT                                         100Z_FLP_USER                    P00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    P00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    P00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    P00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    P00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    P00000011Launchpad do SAP Fiori (app SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    P00000012SAP Fiori Launchpad
+AGR_HIERT                                         100Z_FLP_USER                    P00000034Launchpad do SAP Fiori (app SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    Q00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    Q00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    Q00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    Q00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    Q00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    Q00000011SAP Fiori Launchpad (apl.SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    Q00000012SAP Fiori Launchpad
+AGR_HIERT                                         100Z_FLP_USER                    Q00000034SAP Fiori Launchpad (apl.SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    R00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    R00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    R00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    R00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    R00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    R00000011###.####### SAP Fiori (####. SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    R00000012###### ####### SAP Fiori
+AGR_HIERT                                         100Z_FLP_USER                    R00000034###.####### SAP Fiori (####. SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    S00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    S00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    S00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    S00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    S00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    S00000011Rampa lanzam.SAP Fiori (apl.SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    S00000012Plataforma de lanzamiento de SAP Fiori
+AGR_HIERT                                         100Z_FLP_USER                    S00000034Rampa lanzam.SAP Fiori (apl.SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    T00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    T00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    T00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    T00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    T00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    T00000011SAP Fiori Launchpad (SAPUI5 uyg.)
+AGR_HIERT                                         100Z_FLP_USER                    T00000012SAP Fiori Launchpad
+AGR_HIERT                                         100Z_FLP_USER                    T00000034SAP Fiori Launchpad (SAPUI5 uyg.)
+AGR_HIERT                                         100Z_FLP_USER                    U00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    U00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    U00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    U00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    U00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    U00000011SAP Fiori -aloituspaneeli (SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    U00000012SAP Fiori -aloituspaneeli
+AGR_HIERT                                         100Z_FLP_USER                    U00000034SAP Fiori -aloituspaneeli (SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    V00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    V00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    V00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    V00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    V00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    V00000011SAP Fiori-launchpad (SAPUI5-app)
+AGR_HIERT                                         100Z_FLP_USER                    V00000012SAP Fiori-launchpad
+AGR_HIERT                                         100Z_FLP_USER                    V00000034SAP Fiori-launchpad (SAPUI5-app)
+AGR_HIERT                                         100Z_FLP_USER                    W00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    W00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    W00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    W00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    W00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    W00000011SAP Fiori Launchpad (UI5 ##########)
+AGR_HIERT                                         100Z_FLP_USER                    W00000012######### ##### SAP Fiori
+AGR_HIERT                                         100Z_FLP_USER                    W00000034SAP Fiori Launchpad (UI5 ##########)
+AGR_HIERT                                         100Z_FLP_USER                    X00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    X00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    X00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    X00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    X00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    X00000011„SAP Fiori“ paleidimo skyd. (UI5 TP)
+AGR_HIERT                                         100Z_FLP_USER                    X00000012„SAP Fiori“ paleidimo skydelis
+AGR_HIERT                                         100Z_FLP_USER                    X00000034„SAP Fiori“ paleidimo skyd. (UI5 TP)
+AGR_HIERT                                         100Z_FLP_USER                    Y00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    Y00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    Y00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    Y00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    Y00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    Y00000011SAP Fiori palaišanas panelis (UI5 lietojumprogramma)
+AGR_HIERT                                         100Z_FLP_USER                    Y00000012SAP Fiori Launchpad
+AGR_HIERT                                         100Z_FLP_USER                    Y00000034SAP Fiori palaišanas pan. (UI5 l.p.)
+AGR_HIERT                                         100Z_FLP_USER                    c00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    c00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    c00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    c00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    c00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    c00000011Plataf.llanç.SAP Fiori (apl.SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    c00000012Plataforma de llançament SAP Fiori
+AGR_HIERT                                         100Z_FLP_USER                    c00000034Plataf.llanç.SAP Fiori (apl.SAPUI5)
+AGR_HIERT                                         100Z_FLP_USER                    d00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    d00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    d00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    d00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    d00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    d00000011SAP Fiori Launchpad (UI5 aplikacija)
+AGR_HIERT                                         100Z_FLP_USER                    d00000012SAP Fiori Launchpad
+AGR_HIERT                                         100Z_FLP_USER                    d00000034SAP Fiori Launchpad (UI5 aplikacija)
+AGR_HIERT                                         100Z_FLP_USER                    #00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000011SAP Fiori Launchpad (UI5 App)
+AGR_HIERT                                         100Z_FLP_USER                    #00000012SAP Fiori ########
+AGR_HIERT                                         100Z_FLP_USER                    #00000034SAP Fiori Launchpad (UI5 App)
+AGR_HIERT                                         100Z_FLP_USER                    #00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000011SAP Fiori #### #### ###### (UI5 ##########)
+AGR_HIERT                                         100Z_FLP_USER                    #00000012SAP Fiori #### #### ######
+AGR_HIERT                                         100Z_FLP_USER                    #00000034SAP Fiori #### #### ###. (UI5 ####.)
+AGR_HIERT                                         100Z_FLP_USER                    #00000005R3TR IWSV /UI2/PAGE_BUILDER_PERS             0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000006R3TR IWSV /UI2/INTEROP                       0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000008R3TR IWSG /UI2/FDM_PAGE_RUNTIME_SRV_0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000009R3TR IWSV /UI2/FDM_PAGE_RUNTIME_SRV          0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000010R3TR IWSV SUI_FLP_APP_SUP_SRV                0001
+AGR_HIERT                                         100Z_FLP_USER                    #00000011Hô#p kh.# SAP Fiori (##ng du#ng UI5)
+AGR_HIERT                                         100Z_FLP_USER                    #00000012SAP Fiori Launchpad
+AGR_HIERT                                         100Z_FLP_USER                    #00000034Hô#p kh.# SAP Fiori (##ng du#ng UI5)
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT0BDF2F06BFDAE0E30C5A6A62643514X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT0CE5F5CC13EB983C06D8F76C256D48X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT2319EC3C570EAA2415D4805FA1A36AX
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT26D2A479392B425BEBD23C89693943X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT3306B7EF8ECBDE0252017D43DE0BE6X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT3719F974A6F9607CA6D8FB294C90FCX
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT3A235564F95E8B8844ED4D6EF39738X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT454C85350D6DE8674980D32BC99546X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT4CC78858CF7211088AB530E1E00F95X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT5BC8CF583F24C404FFE774AF581B20
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT6BE6DF358172DA9B835547807A91A7X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT77183FBF21C502236512890055D9F2X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT807C13F30743361805FB233103D61DX
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT86652B54435A2A7E8A2BE1D7ABBE1BX
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT88B40BBEFFF15088D09DCDF4A3788CX
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT935C052D299AED6326FAD8CE98E677
+AGR_APPL_VARS                                     100Z_FLP_USER                    HT96B3D0A2052A2CE1F1F27C2AEE62E5X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HTA15F5E180FD9799CFEFC51020A28B1X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HTAB088B10113EAC3BC6349F4E933053X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HTB2979B83FC4EC22E83A53F318D3F02X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HTDB7A51DCB172FD2918F131204B6D6A
+AGR_APPL_VARS                                     100Z_FLP_USER                    HTDE0699A8407F658831D946F2C25B64X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HTE50E80F6434D75CA9AE9D099FA6CA8X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HTEF608938F3EB18256CE851763C2952X
+AGR_APPL_VARS                                     100Z_FLP_USER                    HTFEA3E50D4B2A915D10565F03B786ACX
+AGR_APPL_VARS                                     100Z_FLP_USER                    TR/UI2/FLP                      X
+AGR_APPL_VARS                                     100Z_FLP_USER                    TRF0000                         X
+AGR_TIME                                          100Z_FLP_USER                    MENU      BPINST      20201030162045000000000000000BPINST      20251014132524000000000000000
+AGR_TIME                                          100Z_FLP_USER                    VARIANTS  BPINST      20201030162045000000000000000BPINST      20251014132524000000000000000
+AGR_TIME                                          100Z_FLP_USER                    PROFILE   BPINST      20201102074530000000000000000BPINST      20251014132524000000000000000
+AGR_LSD                                           100Z_FLP_USER                                                  E
