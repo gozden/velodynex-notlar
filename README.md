@@ -5,11 +5,51 @@ sonra Fiori Elements V2, RAP managed, OData V4 / FE V4, draft ve composition ile
 uca yeniden kuruldu. Her konu bir önceki üzerine inşa edilir; kod bu repoda, gerekçeler
 bu dosyada.
 
-**Ortam:** SAP S/4HANA 2025 Fully-Activated Appliance (SAP CAL, deneme).
+**Ortam:** SAP S/4HANA 2025 Fully-Activated Appliance (SAP CAL, deneme, 1–26 Eylül 2026).
 Geliştirme: ADT (Eclipse), kullanıcı **BPINST**. Son kullanıcı testi: **GOZDE**.
 Paket: `ZVELODYNEX` (software component HOME). Adlandırma: `ZVDX_*`;
 `_R_` root, `_C_` projection/consumption, `_I_` interface, `_VH` value help.
 Sürüm yönetimi: abapGit standalone (offline zip) → bu repo.
+
+---
+
+## Özet — ne yaptım, ne öğrendim
+
+Bu repo, klasik ABAP'tan gelen bir geliştiricinin aynı iş nesnesini üç kuşak SAP UI
+teknolojisiyle uçtan uca kurmasının kaydı: SEGW + UI5 (Konu 5–11), Fiori Elements V2
+üzerinde CDS (Konu 12), RAP managed + OData V4 / FE V4 (Konu 13–19). Her katman bir
+öncekinin üstüne kondu; hiçbir konu kitaptan aktarılmadı, hepsi S/4HANA 2025 appliance'ında
+çalıştırılıp doğrulandı.
+
+Teknik omurga: Z tablo → SEGW servisi → UI5 uygulaması → CDS + Service Binding →
+RAP BO (managed, early numbering, determination, validation, action, instance/global
+authorization, feature control, field control) → draft (Prepare, etag/total etag, kilit)
+→ composition (CBA, dependent lock/auth, cascade) → Metadata Extension, criticality,
+value help → EML determination → ABAP Unit + test double. Güvenlik tarafı: S_SERVICE,
+S_START/G4BA, CSRF, SU21 nesnesi, PFCG rolleri, SAP_ALL'ın kapsamadığı Z nesneler.
+
+En değerli dersler kod değil, mekanizma oldu:
+- RAP'ta akışın çoğu framework'te; senin kodun çağrılan noktalardır. Bir dump'ı çözmek
+  "hangi metot, hangi sözleşme" sorusunu sormaktır (`%is_draft`, idempotent numbering,
+  `mapped` yalnız key taşır).
+- Yetki dört katman: global / instance / instance features / field control. V2 ile V4 aynı
+  backend cevabını farklı çizer (gizli vs gri, görünür vs yok).
+- Draft bir ara kalıcılık katmanıdır: türetilmiş alanlar orada hesaplanmaz, kopyalanır;
+  draft'lar oturumla ölmez; total etag Activate'te, etag her değişiklikte.
+- Composition sahipliktir: child parent'ın kilidini, yetkisini, draft'ını ve ölümünü paylaşır.
+- Test edilebilirlik: `cl_osql_test_environment` + EML ile BO'nun tüm kuralları
+  Fiori'siz, saniyeler içinde doğrulanır.
+
+Çalışma yöntemi: her konu teori → hands-on → iki kullanıcıyla (geliştirici / son kullanıcı)
+doğrulama → notlara bakmadan self-test → cevapları neden-sonuç zinciri olarak yeniden yazma.
+Zincir tekniği, "ne oldu"dan "neden oldu"ya geçişi sağlayan asıl araç oldu.
+
+**Kalite:** ABAP Unit 4/4 yeşil. ATC (`ZABAP_CLOUD_DEVELOPMENT` variant'ı): DPC_EXT'in
+Open SQL'i yeni sözdizimine çevrildikten sonra 3 hata, 12 info. Hatalar yalnız
+`ZVDX_NOT_DOLDUR` (test verisi raporu; `REPORT`/`WRITE` ABAP Cloud'da yok, bilinçli klasik).
+Info'lar: koda gömülü mesaj metinleri (üretimde T100 message class), test sınıfındaki
+`COMMIT ENTITIES` için yanlış pozitif sy-subrc uyarısı. RAP katmanı hatasız. Exemption
+istenmedi — sandbox'ta onaylayıcı yok.
 
 ---
 
@@ -20,6 +60,9 @@ src/          abapGit export (nesnelerin XML/ABAP kaynakları)
 .abapgit.xml
 ui5/          UI5 uygulamalarının okunur kopyaları (BSP MIME'ları)
 abap/         Handler/DPC sınıflarının okunur kopyaları
+docs/         abapGit'e girmeyen artefaktlar: PFCG rol indirmeleri (.SAP), SU21 nesnesi,
+              Launchpad Designer katalog/space görüntüleri, SICF düğümleri, servis publish
+              ekranları, altı tile'lı son Launchpad görüntüsü
 README.md     bu dosya
 ```
 
@@ -56,13 +99,15 @@ son sürüm Component + ODataModel element binding. Üçüncü tile `ZVDXPanel-d
 (URL target mapping). Appliance notları: manuel MIME'lı BSP'ler
 `/sap/bc/bsp/sap/<app>/` altından servis edilir (`/sap/bc/ui5_ui5/` değil); UI5 bootstrap
 yolu `/sap/public/bc/ui5_ui5/1/resources/sap-ui-core.js` (`/1/` şart).
+Not: uygulama ve MIME'ları (WAPA + SMIM, ayrı TADIR kayıtları) final oturumunda `$TMP`'den
+`ZVELODYNEX`'e taşınıp repoya alındı.
 
 ### Konu 8 — Not uygulaması: CRUD (klasik yol)
 Z tablo `ZVDX_NOTLAR` (MANDT, NOT_ID SYSUUID_C32, BASLIK CHAR80, DURUM CHAR1,
 OLUSTURMA TIMESTAMPL; sonradan CREATED_BY, LAST_CHANGED_AT, LOCAL_LAST_CHANGED_AT).
 SEGW servisi `ZVDX_NOT_SRV`: create / read / update / delete + negatif 404 testi.
 UI5 uygulaması `ZVDX_NOT_UI` (ODataModel ile ekle/sil/güncelle). Dördüncü tile
-"Notlarım" `ZVDXNot-display` (SAPUI5 target mapping).
+"Notlarım" `ZVDXNot-display` (SAPUI5 target mapping). Test verisi raporu `ZVDX_NOT_DOLDUR`.
 
 ### Konu 9 — i18n
 TR/EN `i18n.properties`, `fallbackLocale` düzeltmesi.
@@ -210,7 +255,8 @@ adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı 
 Öğrenilenler:
 - **Composition = sahiplik.** Child parent'sız yaratılamaz; parent'ın kilidi, yetkisi ve
   draft'ı child'a iner; parent silinince child silinir. BDEF karşılıkları: `lock dependent`,
-  `authorization dependent`, `with draft`; cascade için ek bir şey yok.
+  `authorization dependent`, `with draft`; cascade için ek bir şey yok. Draft'ta da
+  geçerli: parent draft'ı Discard edilince child draft'ı gider.
 - **Create-by-association (CBA):** child'ın yaratma isteği parent üzerinden gelir;
   numbering metodu parent handler'ında (`entities` = parent satırları, child'lar
   `%target` içinde). Child'da doğrudan `create` olsaydı parent'sız adım yaratılabilirdi.
@@ -241,7 +287,8 @@ adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı 
 - **Value help:** `@Consumption.valueHelpDefinition` → `ZVDX_I_DURUM_VH`. Domain
   `ZVDX_DURUM` (A/T) yaratıldı ama `DDCDS_CUSTOMER_DOMAIN_VALUE_T` bu appliance'ta boş
   döndü; VH `select distinct from ZVDX_R_NOT` ile kuruldu (yalnız kullanımda olan
-  değerler). Filtre çubuğunda çoklu seçimli dropdown ("A (Açık)", `#TEXT_LAST`, `#XS`).
+  değerler — bir durumda hiç kayıt kalmazsa o değer listeden düşer). Filtre çubuğunda
+  çoklu seçimli dropdown ("A (Açık)", `#TEXT_LAST`, `#XS`).
 - **Timestamp:** `OlusturmaSaati` (türetilmiş, UTC) gizlendi; `Olusturma` timestamp'i ve
   `LastChangedAt` field group'a alındı → FE yerel saate çevirdi (05:07 UTC → 08:07).
 - **Boolean:** `abap_boolean` görüntüleme modunda Yes/No, düzenlemede checkbox — düzeltme
@@ -253,29 +300,29 @@ adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı 
   görünüyordu. Draft'lar temizlenince ikon geldi. Aynı mekanizma Konu 16'daki
   "createdAt boş" yanılgısını da açıkladı.
 - **Recreate draft table** mevcut satırları silmez, dönüştürür; yeni alan initial kalır.
+  Root view'a alan eklemeden önce açık draft bırakma.
 - `_D`'den SE16 ile satır silmek sandbox işi; gerçek sistemde draft admin verisi yetim
   kalır — Discard ya da `SAP_DRAFT_CLEANUP`.
 - Root view'daki her alan değişikliği: draft tablosu recreate + binding republish +
   `/IWFND/CACHE_CLEANUP` + tarayıcıda hard refresh.
-- Açık iş: child'da `determination setSira` (max+1) — Konu 19 ısınması.
 
 ### Konu 19 — Determination + EML, ABAP Unit
-
 - **`setSira`** (child, `on modify { create; }`, ayrı local class `lhc_adimlar`):
   tetiklenen adımlardan Sira'sı boş olanları oku → `Notlar BY \_Adimlar` ile notun mevcut
-  adımlarını oku → not bazında max → her yeni adıma max+1 (aynı istekte ardışık) →
+  adımlarını oku (`keys` yalnız yeni adımları taşır; max için notun tümü gerekir) → not
+  bazında max → her yeni adıma max+1 (aynı istekte ardışık) →
   `MODIFY ENTITIES … IN LOCAL MODE UPDATE FIELDS ( Sira )`. COMMIT yok, LUW framework'ün.
-  Sira düzenlenebilir bırakıldı; determination yalnız boşsa doldurur. Doğrulandı: 1, 2;
-  elle 10 → 11.
+  Sira düzenlenebilir bırakıldı; determination yalnız boşsa doldurur. Doğrulandı: 1, 2.
 - **ABAP Unit** (`ZBP_VDX_R_NOT` Test Classes, `ltc_not`, 4 test, ~2 sn):
   `create_durum_a_olur` (Konu 13 determination), `tamamla_durum_t_yapar` (Konu 14 action,
-  feature + yetki katmanından geçerek), `bos_baslik_kaydedilmez` (Konu 16 validation,
-  `COMMIT ENTITIES RESPONSE OF … FAILED`), `adimlar_sira_alir` (Konu 17 CBA + Konu 19).
-  `cl_osql_test_environment` dört tabloyu (aktif + draft) double'lar; gerçek tablolara
-  satır yazılmaz. `ROLLBACK ENTITIES` her testte buffer'ı sıfırlar.
+  feature + yetki katmanından geçerek), `bos_baslik_kaydedilmez` (Konu 16 validation —
+  `on save` olduğu için ancak `COMMIT ENTITIES RESPONSE OF … FAILED` ile görülür),
+  `adimlar_sira_alir` (Konu 17 CBA + Konu 19). `cl_osql_test_environment` dört tabloyu
+  (aktif + draft) double'lar; gerçek tablolara satır yazılmaz. `ROLLBACK ENTITIES` her
+  testte buffer'ı sıfırlar.
 - Test dışarıdan EML: `IN LOCAL MODE` yok → yetki/feature kontrolleri çalışır; test
   kullanıcısının (BPINST, `Z_VDX_DEV`) yetkisi test sonucunun parçasıdır.
-- Kanıt: beklenen değeri bilerek bozunca kırmızı + Failure Trace.
+- Kanıt: beklenen değeri bilerek bozunca kırmızı + Failure Trace ("Expected B, Actual A").
 
 ---
 
@@ -299,10 +346,11 @@ adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı 
 | CDS | `ZVDX_R_NOT`, `ZVDX_R_ADIM` (root), `ZVDX_C_NOT`, `ZVDX_C_ADIM` (projection), `ZVDX_I_DURUM_VH` |
 | MDE | `ZVDX_C_NOT`, `ZVDX_C_ADIM` |
 | BDEF | `ZVDX_R_NOT` (managed, draft, 2 entity), `ZVDX_C_NOT` (projection) |
-| Sınıf | `ZBP_VDX_R_NOT` (handler), `ZCL_ZVDX_NOT_SRV_DPC_EXT` / `_MPC_EXT`, `ZCL_ZVDX_SAYAC_SRV_*` |
+| Sınıf | `ZBP_VDX_R_NOT` (handler + `ltc_not` test sınıfı), `ZCL_ZVDX_NOT_SRV_DPC_EXT` / `_MPC_EXT`, `ZCL_ZVDX_SAYAC_SRV_*` |
+| Program | `ZVDX_NOT_DOLDUR` (test verisi) |
 | Servis | `ZVDX_SAYAC_SRV`, `ZVDX_NOT_SRV` (SEGW); `ZVDX_SD_NOT` → `ZVDX_SB_NOT_O2` (V2), `ZVDX_SB_NOT_O4` (V4) |
 | BSP | `ZVDX_SAYAC_UI`, `ZVDX_NOT_UI`, `ZVDX_NOT_FE`, `ZVDX_NOT_FE4` |
-| Yetki | SU21 `ZVDX_NOT` (ACTVT 01/02/06); roller: GOZDE'nin uygulama rolü, `Z_FLP_USER`, `Z_VDX_DEV` (BPINST) |
+| Yetki | SU21 `ZVDX_NOT` (ACTVT 01/02/06); roller: GOZDE'nin uygulama rolü, `Z_FLP_USER`, `Z_VDX_DEV` (BPINST) — `docs/` altında |
 
 ## Yetki özeti
 
@@ -311,8 +359,8 @@ adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı 
 | GOZDE | 02, 06 (01 yok) | Create V2'de görünür/reddedilir, V4'te yok; kendi açık notunu siler |
 | BPINST | 01, 02, 06 (`Z_VDX_DEV`) | Geliştirme + Preview |
 
-## Plan
+## Durum
 
-- **Konu 19** — `setSira` determination (EML ile aynı BO'yu okuma), ABAP Unit + EML ile
-  RAP testi, CDS test double.
-- **Final (23–24 Eyl)** — son abapGit export, README/portföy özeti. CAL erişimi 26 Eyl'de biter.
+Müfredat tamamlandı (17 Eylül 2026). Son abapGit export ve `docs/` artefaktları bu commit'te.
+Olası devam konuları: T100 message class, unmanaged/additional save senaryosu, Fiori
+Elements V4 flexible programming model (custom section/action), CAP ile aynı BO.
