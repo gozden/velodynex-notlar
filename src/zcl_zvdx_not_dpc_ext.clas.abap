@@ -43,7 +43,7 @@ CLASS ZCL_ZVDX_NOT_DPC_EXT IMPLEMENTATION.
     ENDIF.
 
     MOVE-CORRESPONDING er_entity TO ls_notlar.
-    INSERT zvdx_notlar FROM ls_notlar.
+    INSERT ZVDX_NOTLAR FROM @LS_NOTLAR.
 
     IF sy-subrc <> 0.
       RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception.
@@ -69,9 +69,8 @@ CLASS ZCL_ZVDX_NOT_DPC_EXT IMPLEMENTATION.
   METHOD notlarset_get_entity.
     DATA(lv_not_id) = VALUE #( it_key_tab[ name = 'NotId' ]-value OPTIONAL ).
 
-    SELECT SINGLE * FROM zvdx_notlar
-      INTO CORRESPONDING FIELDS OF @er_entity
-      WHERE not_id = @lv_not_id.
+    SELECT SINGLE   FROM ZVDX_NOTLAR fields *
+      WHERE NOT_ID = @LV_NOT_ID       INTO CORRESPONDING FIELDS OF @ER_ENTITY .
 
     IF sy-subrc <> 0.
       RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception
@@ -118,9 +117,8 @@ CLASS ZCL_ZVDX_NOT_DPC_EXT IMPLEMENTATION.
     DATA(lv_not_id) = VALUE #( it_key_tab[ name = 'NotId' ]-value OPTIONAL ).
 
     " 2) Mevcut kaydı oku — yoksa medeni 404
-    SELECT SINGLE * FROM zvdx_notlar
-      INTO @ls_notlar
-      WHERE not_id = @lv_not_id.
+    SELECT SINGLE   FROM ZVDX_NOTLAR fields *
+      WHERE NOT_ID = @LV_NOT_ID       INTO @LS_NOTLAR .
 
     IF sy-subrc <> 0.
       RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception
@@ -140,7 +138,7 @@ CLASS ZCL_ZVDX_NOT_DPC_EXT IMPLEMENTATION.
       ls_notlar-durum = er_entity-durum.
     ENDIF.
 
-    UPDATE zvdx_notlar FROM ls_notlar.
+    UPDATE ZVDX_NOTLAR FROM @LS_NOTLAR.
 
     IF sy-subrc <> 0.
       RAISE EXCEPTION TYPE /iwbep/cx_mgw_busi_exception.
