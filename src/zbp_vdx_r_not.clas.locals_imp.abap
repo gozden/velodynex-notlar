@@ -1,3 +1,65 @@
+CLASS lsc_zvdx_r_not DEFINITION INHERITING FROM cl_abap_behavior_saver.
+  PROTECTED SECTION.
+    METHODS save_modified REDEFINITION.
+ENDCLASS.
+
+CLASS lsc_zvdx_r_not IMPLEMENTATION.
+
+  METHOD save_modified.
+    DATA loglar TYPE TABLE OF zvdx_not_log.
+    GET TIME STAMP FIELD DATA(simdi).
+
+    " Yeni notlar
+    LOOP AT create-notlar INTO DATA(c) .
+      TRY.
+          APPEND VALUE #( log_id    = cl_system_uuid=>create_uuid_c32_static( )
+                          not_id    = c-notid
+                          islem     = 'C'
+                          baslik    = c-baslik
+                          kullanici = sy-uname
+                          zaman     = simdi ) TO loglar.
+        CATCH cx_uuid_error.
+          "handle exception
+      ENDTRY.
+    ENDLOOP.
+
+    " Güncellenen notlar: Durum 'T'ye döndüyse T, aksi halde U
+    LOOP AT update-notlar INTO DATA(u) .
+      TRY.
+          APPEND VALUE #( log_id    = cl_system_uuid=>create_uuid_c32_static( )
+                          not_id    = u-notid
+                          islem     = COND #( WHEN u-%control-durum = if_abap_behv=>mk-on
+                                               AND u-durum = 'T'
+                                              THEN 'T' ELSE 'U' )
+                          baslik    = u-baslik
+                          kullanici = sy-uname
+                          zaman     = simdi ) TO loglar.
+        CATCH cx_uuid_error.
+          "handle exception
+      ENDTRY.
+    ENDLOOP.
+
+    " Silinen notlar (yalnız anahtar gelir)
+    LOOP AT delete-notlar INTO DATA(d) .
+      TRY.
+          APPEND VALUE #( log_id    = cl_system_uuid=>create_uuid_c32_static( )
+                          not_id    = d-notid
+                          islem     = 'D'
+                          kullanici = sy-uname
+                          zaman     = simdi ) TO loglar.
+        CATCH cx_uuid_error.
+          "handle exception
+      ENDTRY.
+    ENDLOOP.
+
+    IF loglar IS NOT INITIAL.
+      INSERT zvdx_not_log FROM TABLE @loglar.
+    ENDIF.
+    " COMMIT yok — LUW framework'ün
+  ENDMETHOD.
+
+ENDCLASS.
+
 CLASS lhc_notlar DEFINITION INHERITING FROM cl_abap_behavior_handler.
   PRIVATE SECTION.
     METHODS earlynumbering_create FOR NUMBERING
@@ -160,9 +222,10 @@ CLASS lhc_notlar IMPLEMENTATION.
         APPEND VALUE #( %tky = satir-%tky ) TO failed-notlar.
         APPEND VALUE #( %tky        = satir-%tky
                         %state_area = 'VALIDATE_BASLIK'
-                        %msg        = new_message_with_text(
-                                        severity = if_abap_behv_message=>severity-error
-                                        text     = 'Başlık boş olamaz' )
+                        %msg = new_message(
+                                 id       = 'ZVDX_NOT'
+                                 number   = '001'
+                                 severity = if_abap_behv_message=>severity-error )
                         %element-baslik = if_abap_behv=>mk-on ) TO reported-notlar.
       ELSE.
         APPEND VALUE #( %tky        = satir-%tky

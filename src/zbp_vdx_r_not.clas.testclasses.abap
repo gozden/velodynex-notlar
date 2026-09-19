@@ -14,6 +14,7 @@ CLASS ltc_not DEFINITION FINAL FOR TESTING
     METHODS tamamla_durum_t_yapar    FOR TESTING.
     METHODS bos_baslik_kaydedilmez   FOR TESTING.
     METHODS adimlar_sira_alir        FOR TESTING.
+    METHODS create_log_yazar FOR TESTING.
 ENDCLASS.
 
 
@@ -110,4 +111,25 @@ CLASS ltc_not IMPLEMENTATION.
     cl_abap_unit_assert=>assert_equals( act = adimlar[ 2 ]-Sira exp = 2 ).
   ENDMETHOD.
 
-ENDCLASS.
+  METHOD create_log_yazar.
+    MODIFY ENTITIES OF zvdx_r_not
+      ENTITY Notlar
+        CREATE FIELDS ( Baslik ) WITH VALUE #( ( %cid = 'N1' Baslik = 'Loglanacak' ) )
+      MAPPED DATA(mapped).
+
+    COMMIT ENTITIES RESPONSE OF zvdx_r_not
+      FAILED DATA(failed)
+      REPORTED DATA(reported).
+
+    cl_abap_unit_assert=>assert_initial( act = failed-notlar msg = 'Commit başarısız' ).
+
+    DATA(not_id) = mapped-notlar[ 1 ]-NotId.
+
+    SELECT SINGLE islem
+      FROM zvdx_not_log
+      WHERE not_id = @not_id
+      INTO @DATA(islem).
+
+    cl_abap_unit_assert=>assert_equals( act = islem exp = 'C' ).
+  ENDMETHOD.
+  ENDCLASS.

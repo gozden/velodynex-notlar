@@ -8,7 +8,7 @@ draft table zvdx_notlar_d
 early numbering
 lock master total etag LastChangedAt
 authorization master ( global, instance )
-etag master LocalLastChangedAt
+etag master LocalLastChangedAt with additional save
 {
   create;
   update;
