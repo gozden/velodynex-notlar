@@ -324,6 +324,26 @@ adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı 
   kullanıcısının (BPINST, `Z_VDX_DEV`) yetkisi test sonucunun parçasıdır.
 - Kanıt: beklenen değeri bilerek bozunca kırmızı + Failure Trace ("Expected B, Actual A").
 
+### Konu 20 — T100 message class + additional save
+
+- **Message class `ZVDX_NOT`** (001 "Başlık boş olamaz", EN çevirisi): `validateBaslik`'te
+  `new_message_with_text` → `new_message( id number severity )`. Mesaj koddan çıktı,
+  çevrilebilir; ATC "strings without text elements" info'su düştü. Unit test değişmedi
+  (`failed`'a bakıyor, metne değil).
+- **Additional save:** tablo `ZVDX_NOT_LOG` (log_id, not_id, islem C/U/T/D, baslik,
+  kullanici, zaman); BDEF Notlar entity'sinde `with additional save`; saver class
+  `lsc_zvdx_r_not` (`cl_abap_behavior_saver`, `save_modified` redefinition) `create` /
+  `update` / `delete` yapılarını okuyup `INSERT zvdx_not_log` yazar — COMMIT yok, framework'ün
+  LUW'unda. `update-notlar` satırında `%control-Durum` açık ve 'T' ise `T`, değilse `U`.
+  Doğrulandı: C → U → T → D, her biri ayrı LUW; validation Activate'i durdurunca log yok.
+- **Ders — additional save draft'ta çağrılmaz:** `save_modified`'ın yapılarında `%is_draft`
+  bile yok (derleyici "No component %IS_DRAFT"). Draft'a yazmak save sequence değildir;
+  additional save yalnız aktivasyonda, aktif veriyle çalışır.
+- Action'ın yazdığı alan da saver'a `update` olarak düşer — action ayrı bir kanal değil.
+- Unit test: `ZVDX_NOT_LOG` `cl_osql_test_environment` listesine eklendi (yoksa test gerçek
+  loga yazar); `create_log_yazar` COMMIT sonrası doubled tablodan `C` okur. 5/5 yeşil.
+- Open SQL host değişkeninde tablo ifadesi (`@itab[ 1 ]-f`) olmaz; önce değişkene al.
+- Alternatifler: `with unmanaged save` (kaydı tamamen sen yazarsın), `unmanaged` (her şeyi).
 ---
 
 ## Launchpad tile zinciri (katalog `ZVDX_TC_CALISMA`, sayfa `ZVDX`)
