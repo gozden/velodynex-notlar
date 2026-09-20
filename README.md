@@ -344,6 +344,38 @@ adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı 
   loga yazar); `create_log_yazar` COMMIT sonrası doubled tablodan `C` okur. 5/5 yeşil.
 - Open SQL host değişkeninde tablo ifadesi (`@itab[ 1 ]-f`) olmaz; önce değişkene al.
 - Alternatifler: `with unmanaged save` (kaydı tamamen sen yazarsın), `unmanaged` (her şeyi).
+
+### Konu 21 — Fiori Elements V4 Flexible Programming Model
+
+Log (Konu 20) salt okunur olarak servise açıldı: `ZVDX_I_LOG` (UI annotation'ları
+doğrudan interface view'da), `ZVDX_R_NOT`'ta `association [0..*] to ZVDX_I_LOG as _Loglar`,
+`ZVDX_C_NOT`'ta `_Loglar` **redirect'siz**, `ZVDX_SD_NOT` `expose ZVDX_I_LOG as Loglar`.
+Ders: transactional projection'da `redirected to` hedefi BO'ya dahil sayar ve BDEF ister;
+yan veri için redirect kullanılmaz, association interface view'a gider.
+
+`ZVDX_NOT_FE4` BSP'ye `ext/` klasörü (manuel MIME) ve manifest genişletmeleri:
+- **Custom section** `ext/fragment/LogSection.fragment.xml`: `sap.fe.macros` `Table`,
+  `metaPath="_Loglar/@com.sap.vocabularies.UI.v1.LineItem"` — sütunlar annotation'dan,
+  fragment beş satır. Manifest `content.body.sections`, `anchor: "Adimlar"` (MDE facet id).
+- **Custom action** `ext/action/Ozet.js`: header'da "Özet"; FE handler'ı sayfanın binding
+  context'iyle çağırır → `requestObject()` + `bindList("_Adimlar").requestContexts()` →
+  MessageBox. Manifest `content.header.actions`.
+- **Controller extension** `ext/controller/ObjectPageExt.controller.js`:
+  `ControllerExtension.extend`, `override.onPageReady` → toast. Manifest
+  `extends/extensions/sap.ui.controllerExtensions` → `sap.fe.templates.ObjectPage.ObjectPageController`.
+- `sap.fe.macros` kütüphanesi `dependencies.libs`'e eklendi.
+
+Öğrenilenler:
+- FPM üç kapı: fragment (section/column), action handler, controller extension; hepsi
+  manifest'ten bağlanır, FE sayfayı yine kendi çizer.
+- Bozuk manifest JSON'unda FE **sessizce** eski davranışa döner, hata vermez — elle
+  düzenledikten sonra jsonlint. (Eski `routing` bloğu yeni `sap.ui5`'in dışında kalmıştı.)
+- Manifest ve MIME'lar tarayıcı + ICM tarafında önbelleklenir: Ctrl+F5, `?v=n`, gerekirse
+  SMICM server cache invalidate.
+- UI5 modül yolları büyük/küçük harfe duyarlı; `Component.js` `manifest: "json"` olmalı,
+  yoksa manifest.json hiç okunmaz.
+- Unit test double listesine eklenmeyen tablo: test yeşil geçer ama yan etki gerçek tabloya
+  gider (`create_log_yazar` "Loglanacak" satırını gerçek loga yazmıştı — yetim kayıt).
 ---
 
 ## Launchpad tile zinciri (katalog `ZVDX_TC_CALISMA`, sayfa `ZVDX`)
