@@ -40,5 +40,7 @@ define root view entity ZVDX_C_NOT
 
       LocalLastChangedAt,
 
-      _Adimlar : redirected to composition child ZVDX_C_ADIM
+      _Adimlar : redirected to composition child ZVDX_C_ADIM,
+      
+      _Loglar
 }

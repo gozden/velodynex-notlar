@@ -23,7 +23,7 @@ CLASS ltc_not IMPLEMENTATION.
   METHOD class_setup.
     sql_env = cl_osql_test_environment=>create(
       i_dependency_list = VALUE #( ( 'ZVDX_NOTLAR' ) ( 'ZVDX_NOTLAR_D' )
-                                   ( 'ZVDX_ADIMLAR' ) ( 'ZVDX_ADIMLAR_D' ) ) ).
+                                   ( 'ZVDX_ADIMLAR' ) ( 'ZVDX_ADIMLAR_D' ) ( 'ZVDX_NOT_LOG' ) ) ).
   ENDMETHOD.
 
   METHOD class_teardown.

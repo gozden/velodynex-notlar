@@ -3,12 +3,14 @@
 define root view entity ZVDX_R_NOT
   as select from zvdx_notlar 
     composition [0..*] of ZVDX_R_ADIM as _Adimlar
+      association [0..*] to ZVDX_I_LOG as _Loglar on $projection.NotId = _Loglar.NotId
 {
   key not_id    as NotId,
       baslik    as Baslik,
       durum     as Durum,
             _Adimlar,
-
+      _Loglar,
+      
       case durum
         when 'T' then 'Tamamlandı'
         else 'Açık'

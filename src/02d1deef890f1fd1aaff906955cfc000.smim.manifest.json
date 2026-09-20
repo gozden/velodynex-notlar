@@ -16,9 +16,18 @@
   "sap.ui": { "technology": "UI5", "deviceTypes": { "desktop": true, "tablet": true, "phone": true } },
   "sap.ui5": {
     "flexEnabled": true,
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ObjectPage.ObjectPageController": {
+            "controllerName": "zvdx.notfe4.ext.controller.ObjectPageExt"
+          }
+        }
+      }
+    },
     "dependencies": {
       "minUI5Version": "1.120.0",
-      "libs": { "sap.fe.templates": {}, "sap.m": {}, "sap.ui.core": {} }
+      "libs": { "sap.fe.templates": {}, "sap.fe.macros": {}, "sap.m": {}, "sap.ui.core": {} }
     },
     "contentDensities": { "compact": true, "cozy": true },
     "models": {
@@ -51,7 +60,31 @@
         },
         "NotlarObjectPage": {
           "type": "Component", "id": "NotlarObjectPage", "name": "sap.fe.templates.ObjectPage",
-          "options": { "settings": { "contextPath": "/Notlar", "editableHeaderContent": false } }
+          "options": { "settings": {
+            "contextPath": "/Notlar",
+            "editableHeaderContent": false,
+            "content": {
+              "header": {
+                "actions": {
+                  "OzetAction": {
+                    "press": "zvdx.notfe4.ext.action.Ozet.onOzet",
+                    "text": "Özet",
+                    "visible": true,
+                    "enabled": true
+                  }
+                }
+              },
+              "body": {
+                "sections": {
+                  "LogSection": {
+                    "template": "zvdx.notfe4.ext.fragment.LogSection",
+                    "title": "Değişiklik Geçmişi",
+                    "position": { "placement": "After", "anchor": "Adimlar" }
+                  }
+                }
+              }
+            }
+          } }
         }
       }
     }
