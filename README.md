@@ -1,15 +1,15 @@
 # velodynex-notlar — SAP Fiori / RAP Çalışma Günlüğü
 
 Kişisel SAP Fiori öğrenme projesi. Aynı iş nesnesi ("Not") önce klasik SEGW + UI5 ile,
-sonra Fiori Elements V2, RAP managed, OData V4 / FE V4, draft ve composition ile uçtan
-uca yeniden kuruldu. Her konu bir önceki üzerine inşa edilir; kod bu repoda, gerekçeler
-bu dosyada.
+sonra Fiori Elements V2, RAP managed, OData V4 / FE V4, draft, composition, additional
+save ve FE V4 flexible programming model ile uçtan uca yeniden kuruldu. Her konu bir
+önceki üzerine inşa edilir; kod bu repoda, gerekçeler bu dosyada.
 
-**Ortam:** SAP S/4HANA 2025 Fully-Activated Appliance (SAP CAL, deneme, 1–26 Eylül 2026).
+**Ortam:** SAP S/4HANA 2025 Fully-Activated Appliance (SAP CAL, deneme, 1–21 Eylül 2026).
 Geliştirme: ADT (Eclipse), kullanıcı **BPINST**. Son kullanıcı testi: **GOZDE**.
 Paket: `ZVELODYNEX` (software component HOME). Adlandırma: `ZVDX_*`;
 `_R_` root, `_C_` projection/consumption, `_I_` interface, `_VH` value help.
-Sürüm yönetimi: abapGit standalone (offline zip) → bu repo.
+Sürüm yönetimi: abapGit standalone (offline zip) → GitHub Desktop → bu repo.
 
 ---
 
@@ -17,7 +17,7 @@ Sürüm yönetimi: abapGit standalone (offline zip) → bu repo.
 
 Bu repo, klasik ABAP'tan gelen bir geliştiricinin aynı iş nesnesini üç kuşak SAP UI
 teknolojisiyle uçtan uca kurmasının kaydı: SEGW + UI5 (Konu 5–11), Fiori Elements V2
-üzerinde CDS (Konu 12), RAP managed + OData V4 / FE V4 (Konu 13–19). Her katman bir
+üzerinde CDS (Konu 12), RAP managed + OData V4 / FE V4 (Konu 13–21). Her katman bir
 öncekinin üstüne kondu; hiçbir konu kitaptan aktarılmadı, hepsi S/4HANA 2025 appliance'ında
 çalıştırılıp doğrulandı.
 
@@ -25,44 +25,50 @@ Teknik omurga: Z tablo → SEGW servisi → UI5 uygulaması → CDS + Service Bi
 RAP BO (managed, early numbering, determination, validation, action, instance/global
 authorization, feature control, field control) → draft (Prepare, etag/total etag, kilit)
 → composition (CBA, dependent lock/auth, cascade) → Metadata Extension, criticality,
-value help → EML determination → ABAP Unit + test double. Güvenlik tarafı: S_SERVICE,
-S_START/G4BA, CSRF, SU21 nesnesi, PFCG rolleri, SAP_ALL'ın kapsamadığı Z nesneler.
+value help → EML determination → ABAP Unit + test double → T100 message class →
+additional save (log tablosu) → FE V4 FPM (custom section with building block, custom
+action, controller extension). Güvenlik tarafı: S_SERVICE, S_START/G4BA, CSRF, SU21
+nesnesi, PFCG rolleri, SAP_ALL'ın kapsamadığı Z nesneler.
 
 En değerli dersler kod değil, mekanizma oldu:
 - RAP'ta akışın çoğu framework'te; senin kodun çağrılan noktalardır. Bir dump'ı çözmek
   "hangi metot, hangi sözleşme" sorusunu sormaktır (`%is_draft`, idempotent numbering,
-  `mapped` yalnız key taşır).
+  `mapped` yalnız key taşır, `save_modified` yalnız aktif veri).
 - Yetki dört katman: global / instance / instance features / field control. V2 ile V4 aynı
   backend cevabını farklı çizer (gizli vs gri, görünür vs yok).
 - Draft bir ara kalıcılık katmanıdır: türetilmiş alanlar orada hesaplanmaz, kopyalanır;
-  draft'lar oturumla ölmez; total etag Activate'te, etag her değişiklikte.
+  draft'lar oturumla ölmez; total etag Activate'te, etag her değişiklikte; additional save
+  draft'ta çağrılmaz.
 - Composition sahipliktir: child parent'ın kilidini, yetkisini, draft'ını ve ölümünü paylaşır.
-- Test edilebilirlik: `cl_osql_test_environment` + EML ile BO'nun tüm kuralları
-  Fiori'siz, saniyeler içinde doğrulanır.
+  Salt okunur yan veri (log) composition değil, redirect'siz association'dır.
+- Test edilebilirlik: `cl_osql_test_environment` + EML ile BO'nun tüm kuralları Fiori'siz,
+  saniyeler içinde doğrulanır — double listesinde eksik tablo, yeşil geçen ama gerçek
+  veriye yazan test demektir.
+- FE V4'ün ekranı annotation'la biter sanılır; FPM ile fragment, action ve controller
+  extension manifest'ten bağlanır, FE sayfayı yine kendi çizer.
 
 Çalışma yöntemi: her konu teori → hands-on → iki kullanıcıyla (geliştirici / son kullanıcı)
 doğrulama → notlara bakmadan self-test → cevapları neden-sonuç zinciri olarak yeniden yazma.
 Zincir tekniği, "ne oldu"dan "neden oldu"ya geçişi sağlayan asıl araç oldu.
 
-**Kalite:** ABAP Unit 4/4 yeşil. ATC (`ZABAP_CLOUD_DEVELOPMENT` variant'ı): DPC_EXT'in
-Open SQL'i yeni sözdizimine çevrildikten sonra 3 hata, 12 info. Hatalar yalnız
-`ZVDX_NOT_DOLDUR` (test verisi raporu; `REPORT`/`WRITE` ABAP Cloud'da yok, bilinçli klasik).
-Info'lar: koda gömülü mesaj metinleri (üretimde T100 message class), test sınıfındaki
-`COMMIT ENTITIES` için yanlış pozitif sy-subrc uyarısı. RAP katmanı hatasız. Exemption
-istenmedi — sandbox'ta onaylayıcı yok.
+**Kalite:** ABAP Unit 5/5 yeşil. ATC (`ZABAP_CLOUD_DEVELOPMENT` variant'ı): DPC_EXT'in
+Open SQL'i yeni sözdizimine çevrildikten sonra 3 hata. Hatalar yalnız `ZVDX_NOT_DOLDUR`
+(test verisi raporu; `REPORT`/`WRITE` ABAP Cloud'da yok, bilinçli klasik). Mesaj metinleri
+T100'e taşındı (Konu 20). RAP katmanı hatasız. Exemption istenmedi — sandbox'ta
+onaylayıcı yok.
 
 ---
 
 ## Repo yapısı
 
 ```
-src/          abapGit export (nesnelerin XML/ABAP kaynakları)
+src/          abapGit export (nesnelerin XML/ABAP kaynakları, BSP MIME'ları dahil)
 .abapgit.xml
-ui5/          UI5 uygulamalarının okunur kopyaları (BSP MIME'ları)
+ui5/          UI5 uygulamalarının okunur kopyaları
 abap/         Handler/DPC sınıflarının okunur kopyaları
 docs/         abapGit'e girmeyen artefaktlar: PFCG rol indirmeleri (.SAP), SU21 nesnesi,
               Launchpad Designer katalog/space görüntüleri, SICF düğümleri, servis publish
-              ekranları, altı tile'lı son Launchpad görüntüsü
+              ekranları, altı tile'lı Launchpad ve Konu 21 Object Page görüntüleri
 README.md     bu dosya
 ```
 
@@ -313,19 +319,18 @@ adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı 
   bazında max → her yeni adıma max+1 (aynı istekte ardışık) →
   `MODIFY ENTITIES … IN LOCAL MODE UPDATE FIELDS ( Sira )`. COMMIT yok, LUW framework'ün.
   Sira düzenlenebilir bırakıldı; determination yalnız boşsa doldurur. Doğrulandı: 1, 2.
-- **ABAP Unit** (`ZBP_VDX_R_NOT` Test Classes, `ltc_not`, 4 test, ~2 sn):
+- **ABAP Unit** (`ZBP_VDX_R_NOT` Test Classes, `ltc_not`, 5 test, ~1 sn):
   `create_durum_a_olur` (Konu 13 determination), `tamamla_durum_t_yapar` (Konu 14 action,
   feature + yetki katmanından geçerek), `bos_baslik_kaydedilmez` (Konu 16 validation —
   `on save` olduğu için ancak `COMMIT ENTITIES RESPONSE OF … FAILED` ile görülür),
-  `adimlar_sira_alir` (Konu 17 CBA + Konu 19). `cl_osql_test_environment` dört tabloyu
-  (aktif + draft) double'lar; gerçek tablolara satır yazılmaz. `ROLLBACK ENTITIES` her
-  testte buffer'ı sıfırlar.
+  `adimlar_sira_alir` (Konu 17 CBA + Konu 19), `create_log_yazar` (Konu 20).
+  `cl_osql_test_environment` beş tabloyu (aktif + draft + log) double'lar; gerçek tablolara
+  satır yazılmaz. `ROLLBACK ENTITIES` her testte buffer'ı sıfırlar.
 - Test dışarıdan EML: `IN LOCAL MODE` yok → yetki/feature kontrolleri çalışır; test
   kullanıcısının (BPINST, `Z_VDX_DEV`) yetkisi test sonucunun parçasıdır.
 - Kanıt: beklenen değeri bilerek bozunca kırmızı + Failure Trace ("Expected B, Actual A").
 
 ### Konu 20 — T100 message class + additional save
-
 - **Message class `ZVDX_NOT`** (001 "Başlık boş olamaz", EN çevirisi): `validateBaslik`'te
   `new_message_with_text` → `new_message( id number severity )`. Mesaj koddan çıktı,
   çevrilebilir; ATC "strings without text elements" info'su düştü. Unit test değişmedi
@@ -340,13 +345,15 @@ adımlar da silindi** (sıfır child silme kodu), tek Save'de tüm ağaç aynı 
   bile yok (derleyici "No component %IS_DRAFT"). Draft'a yazmak save sequence değildir;
   additional save yalnız aktivasyonda, aktif veriyle çalışır.
 - Action'ın yazdığı alan da saver'a `update` olarak düşer — action ayrı bir kanal değil.
-- Unit test: `ZVDX_NOT_LOG` `cl_osql_test_environment` listesine eklendi (yoksa test gerçek
-  loga yazar); `create_log_yazar` COMMIT sonrası doubled tablodan `C` okur. 5/5 yeşil.
+- Unit test: `ZVDX_NOT_LOG` `cl_osql_test_environment` listesine eklendi; `create_log_yazar`
+  COMMIT sonrası doubled tablodan `C` okur. Listede olmadığı bir koşuda test yeşil geçip
+  gerçek loga "Loglanacak" satırı yazmıştı — double eksikse test başarılı görünür ama yan
+  etki gerçek veriye gider.
 - Open SQL host değişkeninde tablo ifadesi (`@itab[ 1 ]-f`) olmaz; önce değişkene al.
+- DDL'de `//` yorum yok; `/* */` ya da `@EndUserText.label`.
 - Alternatifler: `with unmanaged save` (kaydı tamamen sen yazarsın), `unmanaged` (her şeyi).
 
 ### Konu 21 — Fiori Elements V4 Flexible Programming Model
-
 Log (Konu 20) salt okunur olarak servise açıldı: `ZVDX_I_LOG` (UI annotation'ları
 doğrudan interface view'da), `ZVDX_R_NOT`'ta `association [0..*] to ZVDX_I_LOG as _Loglar`,
 `ZVDX_C_NOT`'ta `_Loglar` **redirect'siz**, `ZVDX_SD_NOT` `expose ZVDX_I_LOG as Loglar`.
@@ -355,11 +362,13 @@ yan veri için redirect kullanılmaz, association interface view'a gider.
 
 `ZVDX_NOT_FE4` BSP'ye `ext/` klasörü (manuel MIME) ve manifest genişletmeleri:
 - **Custom section** `ext/fragment/LogSection.fragment.xml`: `sap.fe.macros` `Table`,
-  `metaPath="_Loglar/@com.sap.vocabularies.UI.v1.LineItem"` — sütunlar annotation'dan,
-  fragment beş satır. Manifest `content.body.sections`, `anchor: "Adimlar"` (MDE facet id).
+  `metaPath="_Loglar/@com.sap.vocabularies.UI.v1.LineItem"` — `ZVDX_I_LOG`'un
+  `@UI.lineItem`'ı `$metadata`'ya iner, building block sütunları oradan çizer, veriyi
+  `_Loglar` navigasyonundan çeker; fragment beş satır. Manifest `content.body.sections`,
+  `anchor: "Adimlar"` (MDE facet id).
 - **Custom action** `ext/action/Ozet.js`: header'da "Özet"; FE handler'ı sayfanın binding
   context'iyle çağırır → `requestObject()` + `bindList("_Adimlar").requestContexts()` →
-  MessageBox. Manifest `content.header.actions`.
+  MessageBox (başlık, durum, oluşturan, adım sayısı). Manifest `content.header.actions`.
 - **Controller extension** `ext/controller/ObjectPageExt.controller.js`:
   `ControllerExtension.extend`, `override.onPageReady` → toast. Manifest
   `extends/extensions/sap.ui.controllerExtensions` → `sap.fe.templates.ObjectPage.ObjectPageController`.
@@ -374,8 +383,8 @@ yan veri için redirect kullanılmaz, association interface view'a gider.
   SMICM server cache invalidate.
 - UI5 modül yolları büyük/küçük harfe duyarlı; `Component.js` `manifest: "json"` olmalı,
   yoksa manifest.json hiç okunmaz.
-- Unit test double listesine eklenmeyen tablo: test yeşil geçer ama yan etki gerçek tabloya
-  gider (`create_log_yazar` "Loglanacak" satırını gerçek loga yazmıştı — yetim kayıt).
+- GitHub web yüklemesi 100 dosyayla sınırlı; `src/` büyüyünce GitHub Desktop.
+
 ---
 
 ## Launchpad tile zinciri (katalog `ZVDX_TC_CALISMA`, sayfa `ZVDX`)
@@ -387,21 +396,22 @@ yan veri için redirect kullanılmaz, association interface view'a gider.
 | 3 | Panel | `ZVDXPanel-display` | `ZVDX_SAYAC_UI` (URL) |
 | 4 | Notlarım | `ZVDXNot-display` | `ZVDX_NOT_UI` (SAPUI5) |
 | 5 | Notlarım (FE) | `ZVDXNotFE-display` | `/sap/bc/bsp/sap/zvdx_not_fe` (FE V2) |
-| 6 | Notlarım (FE V4) | `ZVDXNotFE4-display` | `/sap/bc/bsp/sap/zvdx_not_fe4/index.htm` (FE V4) |
+| 6 | Notlarım (FE V4) | `ZVDXNotFE4-display` | `/sap/bc/bsp/sap/zvdx_not_fe4/index.htm` (FE V4 + FPM) |
 
 ## Nesne envanteri
 
 | Tür | Nesne |
 |---|---|
-| Tablo | `ZVDX_NOTLAR`, `ZVDX_NOTLAR_D`, `ZVDX_ADIMLAR`, `ZVDX_ADIMLAR_D` |
+| Tablo | `ZVDX_NOTLAR`, `ZVDX_NOTLAR_D`, `ZVDX_ADIMLAR`, `ZVDX_ADIMLAR_D`, `ZVDX_NOT_LOG` |
 | Domain | `ZVDX_DURUM` |
-| CDS | `ZVDX_R_NOT`, `ZVDX_R_ADIM` (root), `ZVDX_C_NOT`, `ZVDX_C_ADIM` (projection), `ZVDX_I_DURUM_VH` |
+| Message class | `ZVDX_NOT` |
+| CDS | `ZVDX_R_NOT`, `ZVDX_R_ADIM` (root), `ZVDX_C_NOT`, `ZVDX_C_ADIM` (projection), `ZVDX_I_DURUM_VH`, `ZVDX_I_LOG` |
 | MDE | `ZVDX_C_NOT`, `ZVDX_C_ADIM` |
-| BDEF | `ZVDX_R_NOT` (managed, draft, 2 entity), `ZVDX_C_NOT` (projection) |
-| Sınıf | `ZBP_VDX_R_NOT` (handler + `ltc_not` test sınıfı), `ZCL_ZVDX_NOT_SRV_DPC_EXT` / `_MPC_EXT`, `ZCL_ZVDX_SAYAC_SRV_*` |
+| BDEF | `ZVDX_R_NOT` (managed, draft, additional save, 2 entity), `ZVDX_C_NOT` (projection) |
+| Sınıf | `ZBP_VDX_R_NOT` (handler `lhc_notlar` / `lhc_adimlar`, saver `lsc_zvdx_r_not`, test `ltc_not`), `ZCL_ZVDX_NOT_SRV_DPC_EXT` / `_MPC_EXT`, `ZCL_ZVDX_SAYAC_SRV_*` |
 | Program | `ZVDX_NOT_DOLDUR` (test verisi) |
 | Servis | `ZVDX_SAYAC_SRV`, `ZVDX_NOT_SRV` (SEGW); `ZVDX_SD_NOT` → `ZVDX_SB_NOT_O2` (V2), `ZVDX_SB_NOT_O4` (V4) |
-| BSP | `ZVDX_SAYAC_UI`, `ZVDX_NOT_UI`, `ZVDX_NOT_FE`, `ZVDX_NOT_FE4` |
+| BSP | `ZVDX_SAYAC_UI`, `ZVDX_NOT_UI`, `ZVDX_NOT_FE`, `ZVDX_NOT_FE4` (+ `ext/` FPM dosyaları) |
 | Yetki | SU21 `ZVDX_NOT` (ACTVT 01/02/06); roller: GOZDE'nin uygulama rolü, `Z_FLP_USER`, `Z_VDX_DEV` (BPINST) — `docs/` altında |
 
 ## Yetki özeti
@@ -413,6 +423,8 @@ yan veri için redirect kullanılmaz, association interface view'a gider.
 
 ## Durum
 
-Müfredat tamamlandı (17 Eylül 2026). Son abapGit export ve `docs/` artefaktları bu commit'te.
-Olası devam konuları: T100 message class, unmanaged/additional save senaryosu, Fiori
-Elements V4 flexible programming model (custom section/action), CAP ile aynı BO.
+Müfredat (Konu 1–19) ve iki bonus konu (20–21) tamamlandı; son abapGit export ve `docs/`
+artefaktları bu repoda. CAL appliance 21 Eylül 2026'da sonlandırıldı.
+
+Sonraki müfredat adayları: aynı BO'yu **CAP** (Node.js, BTP) ile kurmak; unmanaged /
+unmanaged save senaryosu; FE V4 custom column ve custom page; RAP business events.
